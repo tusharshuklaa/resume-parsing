@@ -1,0 +1,95 @@
+.rp-context-menu {
+  @include position(absolute, top -10000px left -10000px);
+  @include transition(all 0.2s ease-in-out);
+  @include megaFlex(fd column);
+  z-index: -1;
+  visibility: hidden;
+  background-color: $baseCmColor;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  transform: translateY(10px);
+  transform-origin: center bottom 0px;
+  margin-left: -40px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    border-left: $cmTriangle solid transparent;
+    border-bottom: $cmTriangle solid whitesmoke;
+    border-right: $cmTriangle solid transparent;
+    top: -$cmTriangle;
+    left: $cmTriangle;
+  }
+
+  #{&}-open & {
+    z-index: 10000;
+    visibility: visible;
+  }
+
+  #{&}-items {
+    @include position(relative, top initial left initial);
+    display: initial;
+    background-color: initial;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    border: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    min-width: $cMMinWidth;
+    max-width: $cMMaxWidth;
+    min-height: $cMMinHeight;
+    max-height: $cMMaxHeight;
+    overflow: auto;
+    padding: 5px;
+
+    > li {
+      &.dropdown-header {
+        font-weight: 600;
+        font-size: 1em;
+        color: white;
+        white-space: nowrap;
+        background-color: $cmHighlight;
+        margin-left: -5px;
+        margin-right: -5px;
+        padding: 2px 5px;
+      }
+      &.dropdown-item {
+        font-weight: 400;
+        cursor: pointer;
+
+        &:not(.visited):hover {
+          background-color: blue;
+          color: white;
+        }
+
+        &.visited {
+          color: green;
+          font-style: italic;
+        }
+
+        sup {
+          color: red;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .reqd-info {
+    position: relative;
+    padding: 5px;
+    background-color: $cmHighlight;
+    color: white;
+    border-radius: 0px 0px 3px 3px;
+    text-shadow: 0px 0px 0px;
+    letter-spacing: 0.8px;
+    sup {
+      color: red;
+    }
+  }
+}

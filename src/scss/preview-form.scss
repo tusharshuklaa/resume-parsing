@@ -1,0 +1,19 @@
+.resume-form {
+  .modal-body {
+    max-height: 70%;
+    max-height: 70vh;
+    overflow: auto;
+  }
+
+  .half-width {
+    width: 49%;
+
+    &:nth-child(even) {
+      float: right;
+    }
+
+    &:nth-child(odd) {
+      float: left;
+    }
+  }
+}

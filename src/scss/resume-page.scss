@@ -1,0 +1,68 @@
+.resume-page {
+  @include position(fixed, top 0px bottom 0px left 0px right 0px);
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(space-between);
+  height: 100%;
+  background-color: $baseBgColor;
+
+  .resume-tools {
+    @extend %flexWithPad;
+    @extend %bgWithColor;
+
+    .left-tools {
+      .resume-hint {
+        margin-left: 10px;
+
+        i.fa {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  
+  .resume-container {
+    overflow: auto;
+    position: relative;
+
+    .resume {
+      @extend %A4Sheet;
+      display: none;
+
+      &.resume-active {
+        display: block;
+      }
+    }
+  }
+  
+  .resume-meta {
+    @extend %flexWithPad;
+    @extend %bgWithColor;
+
+    .resume-form-info {
+      #form-count {
+        font-weight: 600;
+      }
+    }
+
+    .resume-pagination {
+      i.fa {
+        font-size: 1.2em;
+        cursor: pointer;
+
+        &.disabled {
+          color: grey;
+          pointer-events: none;
+        }
+      }
+
+      i.prev {
+        margin-right: $subtleMargin;
+      }
+
+      i.next {
+        margin-left: $subtleMargin;
+      }
+    }
+  }
+}

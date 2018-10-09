@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resume Parsing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="screen" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="vendor/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+
+</head>
+
+<body translate="no">
+
+    <div class="resume-page">
+        <header class="resume-tools">
+            <section class="left-tools">
+                <span class="resume-info">
+                    Select text to fill form
+                </span>
+                <span class="resume-hint">
+                    <i title="Watch a demo" class="fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
+                </span>
+            </section>
+            <section class="right-tools">
+                <button id="previewResume" class="btn btn-sm" data-toggle="modal" data-target="#_previewForm">Preview</button>
+                <button id="saveResume" class="btn btn-sm">Next</button>
+            </section>
+        </header>
+        <section id="resume" class="resume-container">
+            <section class="resume resume-active">
+                <h3>Tushar Shukla</h3>
+                <h5>+91 9811311710</h5>
+                <h5>tusharshuklaa@gmail.com</h5>
+                <h5>DOB: 29/10/1991</h5>
+                <h5>DOB: 29-10-1991</h5>
+                <h5>DOB: 29.10.1991</h5>
+                <h5>DOB: 1991/10/29</h5>
+                <h5>DOB: Oct 29</h5>
+                <h5>DOB: Oct 29, 1991</h5>
+                <h5>Expected Salary: $9876543</h5>
+                <address>
+                    House No: 123, Baker's Street<br>
+                    Peurto Rico<br>
+                    ZIP: 1209358
+                </address>
+
+                <p>Ad occaecat velit officia in quis officia ex Lorem aliquip Lorem qui dolore. Occaecat dolor velit
+                    est cupidatat.
+                    Officia fugiat amet cillum esse deserunt qui amet dolore sint voluptate. Cillum ex anim incididunt
+                    elit laboris
+                    irure. Irure ut occaecat dolor ad Lorem et consequat amet laboris mollit nostrud. </p>
+                <ul>
+                    <li>this is something</li>
+                    <li>That is going into a subtle list</li>
+                    <li>Without any specific order</li>
+                </ul>
+                <ol>
+                    <li>And this list is somehow different</li>
+                    <li>This is an ordered list</li>
+                    <li>With usual countings for the list items</li>
+                </ol>
+            </section>
+            
+            <section class="resume">
+                <p>Ad occaecat velit officia in quis officia ex Lorem aliquip Lorem qui dolore. Occaecat dolor velit
+                    est cupidatat.
+                    Officia fugiat amet cillum esse deserunt qui amet dolore sint voluptate. Cillum ex anim incididunt
+                    elit laboris
+                    irure. Irure ut occaecat dolor ad Lorem et consequat amet laboris mollit nostrud. </p>
+                <ul>
+                    <li>this is something</li>
+                    <li>That is going into a subtle list</li>
+                    <li>Without any specific order</li>
+                </ul>
+                <ol>
+                    <li>And this list is somehow different</li>
+                    <li>This is an ordered list</li>
+                    <li>With usual countings for the list items</li>
+            </section>
+        </section>
+        <footer class="resume-meta">
+            <div class="resume-form-info">
+                <span id="form-count">2/10</span>
+                fields remaining
+            </div>
+            <div class="resume-pagination">
+                <i class="prev fa fa-caret-left disabled"></i>
+                <span id="page-count">0/0</span>
+                pages
+                <i class="next fa fa-caret-right"></i>
+            </div>
+        </footer>
+    </div>
+    <div class="modal fade" id="_userHint" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Watch video below to understand how it works</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/1BJ3ueJKCYk?rel=0" 
+                            frameborder="0" 
+                            allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade resume-form" id="_previewForm" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Form/Preview/Edit Form</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Mandatory</h3>
+                    <section id="reqFields" class="mandatoryItems"></section>
+                    <h3>Optional</h3>
+                    <section id="optFields" class="optionalItems"></section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="_sFd" class="btn btn-default">Save & Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="vendor/js/jquery.min.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
