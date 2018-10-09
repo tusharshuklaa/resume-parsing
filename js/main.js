@@ -987,7 +987,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    */
   const getAllFieldsForSuggestion = function() {
     return Object.keys(af).reduce((acc, cv) => {
-      acc.push(cv);
+      if(af[cv].canSuggest) {
+        acc.push(cv);
+      }
       return acc;
     }, []);
   };
@@ -1238,7 +1240,5 @@ $(() => {
 
 /** 
  * TODOs:
- * On preivew modal page, save btn updates the new values in main object
- * Cancel on preview modal brings back the original values and removes the edited ones
  * Next btn validates if all required fields have been filled
 */

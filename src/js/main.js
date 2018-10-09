@@ -671,16 +671,17 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {string[]} suggestions
    */
   const _createDom = function(suggestions) {
-    //TODO: Make DOM creation smarter
     if (suggestions && suggestions.length > 0) {
       let suggested = "",
           remianing = "";
       for (let f in af) {
         const field = af[f];
-        if (suggestions.indexOf(f) >= 0) {
-          suggested = suggested + _getDomString(field);
-        } else {
-          remianing = remianing + _getDomString(field);
+        if (field.canSuggest){
+          if (suggestions.indexOf(f) >= 0) {
+            suggested = suggested + _getDomString(field);
+          } else {
+            remianing = remianing + _getDomString(field);
+          }
         }
       }
 
@@ -987,7 +988,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    */
   const getAllFieldsForSuggestion = function() {
     return Object.keys(af).reduce((acc, cv) => {
-      acc.push(cv);
+      if(af[cv].canSuggest) {
+        acc.push(cv);
+      }
       return acc;
     }, []);
   };
