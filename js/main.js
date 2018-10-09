@@ -62,7 +62,10 @@ const ResumeParsing = {
     reqFields: "#reqFields",
     optFields: "#optFields",
     preview: "#previewResume",
-    next: "#saveResume"
+    next: "#saveResume",
+    fields: ".resume-field",
+    saveForm: "#saveNCloseForm",
+    closeForm: "#closeForm"
   }
 };
 
@@ -471,7 +474,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     });
 
     $(elem.preview).on("click", function() {
-      f.update();
+      f.init();
     });
   };
 
@@ -1035,7 +1038,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 (function({ 
   Form: f,
   AllFields: af,
-  DOM: elem
+  DOM: elem,
+  Utility: u,
+  IdPrefix: pFix
 }) {
 
   const _allKeys = Object.keys(af);
@@ -1137,6 +1142,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   };
 
   const _createFormGroup = function(keys) {
+    const fieldClass = u.getIdentifierName(elem.fields);
     let form = "";
     keys.forEach((k) => {
       const o = af[k],
@@ -1148,12 +1154,12 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         o.dom.options.forEach(z => {
           options = options + `<option value="${z}">${z}</option>`;
         });
-        inputField = `<select class="form-control" id="${o.dom.id}" value="${o.value}" ${isRequired}>${options}</select>`;
+        inputField = `<select class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired}>${options}</select>`;
       } else if (o.dom.type === "desc") {
         isHalfWidth = "";
-        inputField = `<textarea class="form-control" rows="3" id="${o.dom.id}" value="${o.value}" ${isRequired}></textarea>`;
+        inputField = `<textarea class="form-control ${fieldClass}" rows="3" id="${o.dom.id}" value="${o.value}" ${isRequired}></textarea>`;
       } else {
-        inputField = `<input type="${o.dom.type}" class="form-control" id="${o.dom.id}" value="${o.value}" ${isRequired} />`;
+        inputField = `<input type="${o.dom.type}" class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired} />`;
       }
       form = form + `
         <div class="form-group ${isHalfWidth}">
@@ -1165,12 +1171,42 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     return form;
   };
 
+  const init = function() {
+    _initHandlers();
+    updateFormValues();
+  };
+
+  const _initHandlers = function() {
+    $(elem.saveForm).on("click", _handleFormSave);
+    $(elem.closeForm).on("click", _destroyHandlers);
+  };
+
+  const _destroyHandlers = function() {
+    $(elem.saveForm).off("click", _handleFormSave);
+    $(elem.closeForm).off("click", _destroyHandlers);
+  };
+
+  const _handleFormSave = function() {
+    _updateValuesFromForm();
+    updateFilledFields();
+  };
+
   const updateFormValues = function() {
     _allKeys.forEach((k) => {
       const o = af[k];
       $("#" + o.dom.id).val(o.value);
     });
   };
+
+  const _updateValuesFromForm = function() {
+    $(elem.fields).each(function() {
+      const elem = $(this),
+      id = elem.attr("id").replace(pFix, "");
+      af[id].value = elem.val();
+    });
+  };
+
+  const validateForm = function() {};
 
   // Making functions Public
   f.allFieldsCount = tf;
@@ -1184,7 +1220,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   f.getAllLeft = getAllEmpty;
   f.updateAllCount = updateFilledFields;
   f.create = createForm;
-  f.update = updateFormValues;
+  f.init = init;
+  f.isValid = validateForm;
   
 })(ResumeParsing);
 
@@ -1201,7 +1238,6 @@ $(() => {
 
 /** 
  * TODOs:
- * Make a funcion to update values in form
  * On preivew modal page, save btn updates the new values in main object
  * Cancel on preview modal brings back the original values and removes the edited ones
  * Next btn validates if all required fields have been filled

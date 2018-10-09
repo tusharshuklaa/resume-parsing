@@ -63,7 +63,9 @@ const ResumeParsing = {
     optFields: "#optFields",
     preview: "#previewResume",
     next: "#saveResume",
-    fields: ".resume-field"
+    fields: ".resume-field",
+    saveForm: "#saveNCloseForm",
+    closeForm: "#closeForm"
   }
 };
 
@@ -472,7 +474,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     });
 
     $(elem.preview).on("click", function() {
-      f.update();
+      f.init();
     });
   };
 
@@ -1037,7 +1039,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   Form: f,
   AllFields: af,
   DOM: elem,
-  Utility: u
+  Utility: u,
+  IdPrefix: pFix
 }) {
 
   const _allKeys = Object.keys(af);
@@ -1168,12 +1171,42 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     return form;
   };
 
+  const init = function() {
+    _initHandlers();
+    updateFormValues();
+  };
+
+  const _initHandlers = function() {
+    $(elem.saveForm).on("click", _handleFormSave);
+    $(elem.closeForm).on("click", _destroyHandlers);
+  };
+
+  const _destroyHandlers = function() {
+    $(elem.saveForm).off("click", _handleFormSave);
+    $(elem.closeForm).off("click", _destroyHandlers);
+  };
+
+  const _handleFormSave = function() {
+    _updateValuesFromForm();
+    updateFilledFields();
+  };
+
   const updateFormValues = function() {
     _allKeys.forEach((k) => {
       const o = af[k];
       $("#" + o.dom.id).val(o.value);
     });
   };
+
+  const _updateValuesFromForm = function() {
+    $(elem.fields).each(function() {
+      const elem = $(this),
+      id = elem.attr("id").replace(pFix, "");
+      af[id].value = elem.val();
+    });
+  };
+
+  const validateForm = function() {};
 
   // Making functions Public
   f.allFieldsCount = tf;
@@ -1187,7 +1220,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   f.getAllLeft = getAllEmpty;
   f.updateAllCount = updateFilledFields;
   f.create = createForm;
-  f.update = updateFormValues;
+  f.init = init;
+  f.isValid = validateForm;
   
 })(ResumeParsing);
 
@@ -1204,7 +1238,5 @@ $(() => {
 
 /** 
  * TODOs:
- * On preivew modal page, save btn updates the new values in main object
- * Cancel on preview modal brings back the original values and removes the edited ones
  * Next btn validates if all required fields have been filled
 */
