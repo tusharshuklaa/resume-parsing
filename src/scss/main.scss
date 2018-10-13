@@ -1,0 +1,39 @@
+// <reference path="_variables.scss" />
+// <reference path="_mixins.scss" />
+// <reference path="_placeholders.scss" />
+
+.resume-container {
+  @include megaFlex(fd row ai flex-start jc space-between);
+  @include box(100%);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+
+  .resume-page {
+    @include megaFlex(fg 0 fs 0 fb calc(100vw - #{$sideBarWidth}) fd column jc space-between);
+
+    .resume-meta {
+      @include megaFlex(ai center jc flex-start);
+      background-color: $bgColor2;
+      i.fa {
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: $basePad1;
+        background-color: $bgColor1;
+        color: $txtColor1;
+      }
+      .resume-progress {
+        @include megaFlex(ai center jc center);
+        position: relative;
+        padding: $basePad1 0;
+        width: 30%;
+        background-color: $progressBarBg;
+        color: $white;
+      }
+    }
+  }
+
+  .resume-side-bar {
+    @include megaFlex(fg 0 fs 0 fb $sideBarWidth fd column jc space-between);
+  }
+}

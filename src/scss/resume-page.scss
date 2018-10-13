@@ -1,13 +1,12 @@
+// <reference path="_variables.scss" />
+// <reference path="_mixins.scss" />
+// <reference path="_placeholders.scss" />
+
 .resume-page {
-  @include position(fixed, top 0px bottom 0px left 0px right 0px);
-  @include flexbox();
-  @include flex-direction(column);
-  @include justify-content(space-between);
   height: 100%;
   background-color: $baseBgColor;
 
   .resume-tools {
-    @extend %flexWithPad;
     @extend %bgWithColor;
 
     .left-tools {
@@ -36,9 +35,6 @@
   }
   
   .resume-meta {
-    @extend %flexWithPad;
-    @extend %bgWithColor;
-
     .resume-form-info {
       #form-count {
         font-weight: 600;

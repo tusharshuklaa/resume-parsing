@@ -1,9 +1,28 @@
+//#region Color definitions
+
+$purple: #A56BD2;
+$white: #ffffff;
+$grey: #A6A6A6;
+$darkGrey: #656565;
+$black: #000;
+$lightGreen: #90D151;
+
+//#endregion
+
 //#region Colors
+$bgColor1: $purple;
+$bgColor2: $grey;
+
+$txtColor1: $white;
+
+
 $baseBgColor: #ffffff;
+$primaryColor: #A56BD2;
+$secondaryColor: #A56BD2;
 
 //#region Header Colors
 
-$headerBgColor: #000000;
+$headerBgColor: $primaryColor;
 $headerColor: #ffffff;
 
 //#endregion
@@ -12,6 +31,7 @@ $headerColor: #ffffff;
 
 $baseCmColor: #f5f5f5;
 $cmHighlight: #656565;
+$progressBarBg: $lightGreen;
 
 //#endregion
 
@@ -19,8 +39,10 @@ $cmHighlight: #656565;
 
 //#region Measurements
 
-$basePadHorizontal: 10px;
-$basePadVertical: 15px;
+$basePad: 5px;
+$basePad1: 10px;
+$basePad2: 15px;
+$basePad3: 20px;
 
 $subtleMargin: 10px;
 
@@ -29,5 +51,7 @@ $cMMaxWidth: 250px;
 $cMMinHeight: 150px;
 $cMMaxHeight: 250px;
 $cmTriangle: 10px;
+
+$sideBarWidth: 30vw;
 
 //#endregion

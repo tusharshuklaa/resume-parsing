@@ -4,12 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Run Everything", // <-- Bind this task to a key
-            "dependsOn": ["Sass Compile", "copy js"],
+            "label": "Run Everything",
+            "dependsOn": [
+                "Sass Compile",
+                "copy js"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Sass Compile",

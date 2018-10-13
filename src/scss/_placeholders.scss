@@ -1,8 +1,11 @@
+// <reference path="_variables.scss" />
+// <reference path="_mixins.scss" />
+
 %flexWithPad {
   @include flexbox();
   @include justify-content(space-between);
   @include align-items(center);
-  padding: $basePadVertical $basePadHorizontal;
+  padding: $basePad1 $basePad2;
 }
 
 %bgWithColor  {

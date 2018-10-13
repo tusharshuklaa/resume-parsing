@@ -153,11 +153,12 @@ const ResumeParsing = {
 
 ResumeParsing.AllFields = {
   /**
-   * -> Following Object is the main structure that defines what field values to besuggested under what category
+   * -> Following Object is the main structure that defines what field values to be suggested under what category
    * -> These also help in creating preview form
    * -> These help in validation as well
    * -> These also helps in keeping count of values filled till now
-   * -> Main Object has two properties that describes each field in all aspects
+   * -> Main Object has 'like' property that puts it under possible categories
+   * -> 'canSuggest' property enables to mute a property from being suggested
    * 
    */
   "firstName": {
@@ -166,7 +167,8 @@ ResumeParsing.AllFields = {
     "label": "First Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -177,7 +179,8 @@ ResumeParsing.AllFields = {
     "label": "Last Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -188,7 +191,8 @@ ResumeParsing.AllFields = {
     "label": "Email",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "email"
     },
     "canSuggest": true
@@ -199,7 +203,8 @@ ResumeParsing.AllFields = {
     "label": "Mobile No",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "number"
     },
     "canSuggest": true
@@ -210,7 +215,8 @@ ResumeParsing.AllFields = {
     "label": "Profile Headline",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -221,7 +227,8 @@ ResumeParsing.AllFields = {
     "label": "Gender",
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "select",
       "options": [
         "male",
@@ -237,7 +244,8 @@ ResumeParsing.AllFields = {
     "label": "Country",
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -248,7 +256,8 @@ ResumeParsing.AllFields = {
     "label": "State",
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -259,7 +268,8 @@ ResumeParsing.AllFields = {
     "label": "City",
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -270,7 +280,8 @@ ResumeParsing.AllFields = {
     "label": "Last Company Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -281,7 +292,8 @@ ResumeParsing.AllFields = {
     "label": "Last Company Designation",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -292,7 +304,8 @@ ResumeParsing.AllFields = {
     "label": "Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "number"
     },
     "canSuggest": true
@@ -303,7 +316,8 @@ ResumeParsing.AllFields = {
     "label": "Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "desc"
     },
     "canSuggest": true
@@ -314,7 +328,8 @@ ResumeParsing.AllFields = {
     "label": "Industry",
     "required": false,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -325,7 +340,8 @@ ResumeParsing.AllFields = {
     "label": "Location",
     "required": false,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -336,7 +352,8 @@ ResumeParsing.AllFields = {
     "label": "School Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -347,7 +364,8 @@ ResumeParsing.AllFields = {
     "label": "Degree",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -358,7 +376,8 @@ ResumeParsing.AllFields = {
     "label": "Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "number"
     },
     "canSuggest": true
@@ -369,7 +388,8 @@ ResumeParsing.AllFields = {
     "label": "Grade",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -380,7 +400,8 @@ ResumeParsing.AllFields = {
     "label": "Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "desc"
     },
     "canSuggest": true
@@ -391,7 +412,8 @@ ResumeParsing.AllFields = {
     "label": "Field Of Study",
     "required": false,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": {
+    "dom": { 
+      "placeholder" : "placeholder", 
       "type": "text"
     },
     "canSuggest": true
@@ -428,8 +450,11 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    */
   const init = function() {
     _initHandlers();
+    // Updating count of filled fields vs all fields
     f.updateAllCount();
+    // Updating current resume page number vs all resume pages
     _updatePageCount(_getPageCount());
+    // Creating Preview Form dynamically
     f.create();
   };
 
@@ -473,6 +498,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       _updatePage(e, true);
     });
 
+    /**
+     * Initializing FORM on click of preview button
+     */
     $(elem.preview).on("click", function() {
       f.init();
     });
@@ -509,6 +537,13 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     }
   };
 
+  /**
+   * Returns an object with 2 properties namely
+   * total: total number of resume pages
+   * curr: current visible page of resume on screen
+   *
+   * @returns {Object}
+   */
   const _getPageCount = function() {
     const kids = $(elem.resume).children();
     let pagesCount = 0,
@@ -518,15 +553,21 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       pagesCount = kids.length;
       currPage = kids.index($(elem.currResumePage));
       currPage = currPage > -1 ? currPage + 1 : 0;
-    } else {
-      // no resume pages loaded yet
-    }
+    } 
     return {
       total: pagesCount,
       curr: currPage
     };
   };
 
+  /**
+   * Takes in object with 2 properties namely
+   * total: total number of resume pages
+   * curr: current visible page of resume on screen
+   * and updates the DOM with corresponding page count
+   *
+   * @param {*} {total, curr}
+   */
   const _updatePageCount = function({total, curr}) {
     $(elem.pageCount).html(curr + "/" + total);
   };
@@ -612,7 +653,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {*} suggestions
    */
   const init = function (e, suggestions, txt) {
-    console.log("Suggested fields for selection text " + txt + " is: ", suggestions);
+    // console.log("Suggested fields for selection text " + txt + " is: ", suggestions);
     selectedText = txt;
     _createDom(suggestions);
     _setPosition(e);
@@ -671,16 +712,17 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {string[]} suggestions
    */
   const _createDom = function(suggestions) {
-    //TODO: Make DOM creation smarter
     if (suggestions && suggestions.length > 0) {
       let suggested = "",
           remianing = "";
       for (let f in af) {
         const field = af[f];
-        if (suggestions.indexOf(f) >= 0) {
-          suggested = suggested + _getDomString(field);
-        } else {
-          remianing = remianing + _getDomString(field);
+        if (field.canSuggest){
+          if (suggestions.indexOf(f) >= 0) {
+            suggested = suggested + _getDomString(field);
+          } else {
+            remianing = remianing + _getDomString(field);
+          }
         }
       }
 
@@ -691,8 +733,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
             cm = `
               <div class="dropdown ${pClass}">
                 <ul class="dropdown-menu ${pItemClass}">
-                  <li class="dropdown-header">Suggested</li> ${suggested}
-                  <li class="dropdown-header">Remaining</li> ${remianing}
+                  ${suggested}
+                  ${remianing}
                 </ul>
                 <div class="reqd-info">
                   Required<sup>*</sup> - ${filledReq}/${totalReqd}
@@ -761,8 +803,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {MouseEvent} e
    */
   const _closeContextMenu = function (e) {
-    const _elm = e.target || e.srcElement;
-    const cmElem = $(_elm).closest(elem.contextMenu);
+    const _elm = e.target || e.srcElement,
+          cmElem = $(_elm).closest(elem.contextMenu);
     // Check if the mousedown event has happened from within the context menu
     if (!cmElem || cmElem.length === 0) {
       _close();
