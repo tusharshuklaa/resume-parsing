@@ -19,9 +19,8 @@
         <div class="resume-page">
             <header class="resume-meta">
                 <i title="Watch a demo" class="fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
-                <div class="resume-progress">
-                    <span id="progressStatus">0%</span> Complete
-                </div>
+                <div class="resume-progress"></div>
+                <span id="progressStatus">0% Complete</span>
             </header>
             <section id="resume" class="resume-container">
                 <section class="resume resume-active">
@@ -109,17 +108,39 @@
         <div class="resume-side-bar">
             <header class="resume-tools">
                 <section class="left-tools">
-                    <div class="resume-pagination">
-                        <i class="prev fa fa-caret-left disabled"></i>
-                        <span id="page-count">0/0</span>
-                        pages
-                        <i class="next fa fa-caret-right"></i>
-                    </div>
+                    <i class="prev fa fa-caret-left disabled"></i>
+                    <span><span id="page-count">0 / 0</span> pages</span>
+                    <i class="next fa fa-caret-right"></i>
                 </section>
                 <section class="right-tools">
                     <button id="saveResume" class="btn btn-sm">Next</button>
                 </section>
             </header>
+            <section class="side-bar-content">
+                <section class="info-section personal-info">
+                    <input type="text" class="input-headline" placeholder="full name" />
+                    <input type="text" placeholder="mobile number" />
+                    <input type="text" placeholder="email address" />
+                </section>
+                <section class="info-section professional-info">
+                    <input type="text" class="input-headline" placeholder="last company name" />
+                    <input type="text" placeholder="last designation" />
+                    <input type="text" placeholder="duration" />
+                    <section class="descriptionList">
+                        <span>Description</span>
+                        <input type="text" placeholder="..." />
+                    </section>
+                </section>
+                <section class="info-section educational-info">
+                    <input type="text" class="input-headline" placeholder="University/Institute name" />
+                    <input type="text" placeholder="Course name" />
+                    <input type="text" placeholder="duration" />
+                    <section class="descriptionList">
+                        <span>Description</span>
+                        <input type="text" placeholder="..." />
+                    </section>
+                </section>
+            </section>
         </div>
     </section>
     <div class="modal fade" id="_userHint" role="dialog">

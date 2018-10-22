@@ -3,18 +3,20 @@
 // <reference path="_placeholders.scss" />
 
 .resume-container {
-  @include megaFlex(fd row ai flex-start jc space-between);
-  @include box(100%);
+  @include flexbox();
+  padding-top: $headerHeight;
   overflow: hidden;
-  margin: 0;
-  padding: 0;
 
   .resume-page {
-    @include megaFlex(fg 0 fs 0 fb calc(100vw - #{$sideBarWidth}) fd column jc space-between);
+    @include megaFlex(fg 0 fs 1 fb calc(100% - #{$sideBarWidth}) fd column jc space-between);
 
     .resume-meta {
       @include megaFlex(ai center jc flex-start);
+      @extend %fixHead;
+      width: calc(100% - #{$sideBarWidth});
       background-color: $bgColor2;
+      z-index: 1001;
+
       i.fa {
         cursor: pointer;
         font-size: 1.5em;
@@ -23,17 +25,24 @@
         color: $txtColor1;
       }
       .resume-progress {
-        @include megaFlex(ai center jc center);
-        position: relative;
-        padding: $basePad1 0;
-        width: 30%;
+        position: absolute;
+        left: 38px;
+        padding: 20.5px 0;
+        width: 0;
         background-color: $progressBarBg;
         color: $white;
+        transition: width 1s cubic-bezier(0.65, 0.05, 0.36, 1);
+
+        & + span {
+          margin: auto;
+          z-index: 10002;
+          color: $white;
+        }
       }
     }
   }
 
   .resume-side-bar {
-    @include megaFlex(fg 0 fs 0 fb $sideBarWidth fd column jc space-between);
+    @include megaFlex(fg 1 fs 0 fb $sideBarWidth fd column);
   }
 }

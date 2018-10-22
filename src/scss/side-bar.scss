@@ -1,0 +1,81 @@
+header.resume-tools {
+  @include megaFlex(fd row jc space-between ai center fs 0 fg 0 fb auto);
+  @extend %fixHead;
+  width: $sideBarWidth;
+  background-color: $bgColor1;
+  color: $txtColor1;
+  border-bottom: 2px solid $white;
+
+  .left-tools {
+    padding: $basePad1 $basePad2;
+
+    i.fa {
+      font-size: 1.4em;
+      cursor: pointer;
+      vertical-align: middle;
+      text-shadow: 1px 1px 0px black;
+
+      &.disabled {
+        color: $bgColor2;
+        pointer-events: none;
+      }
+    }
+
+    i.prev {
+      margin-right: $subtleMargin;
+    }
+
+    i.next {
+      margin-left: $subtleMargin;
+    }
+
+    > span {
+      display: inline-block;
+      vertical-align: middle;
+      pointer-events: none;
+    }
+  }
+
+  .right-tools {
+    .btn {
+      font-size: 1.4em;
+      line-height: 1;
+      background-color: $primaryColor;
+      border-radius: 0px;
+      padding: $basePad1 $basePad2;
+      border-left: 2px solid $white;
+    }
+  }
+}
+
+section.side-bar-content {
+  @include megaFlex(fd column fs 1 fg 1 fb auto);
+  background-color: $bgColor1;
+  color: $txtColor1;
+  padding: 10%;
+
+  .info-section {
+    padding: 20px 0;
+    border-bottom: 1px solid $white;
+
+    > input {
+      @extend %transyInput;
+      width: 100%;
+
+      @include placeholder() {
+        color: $white;
+      }
+    }
+
+    .descriptionList {
+      > input {
+        @extend %transyInput;
+      }
+    }
+  }
+
+  .input-headline {
+    font-size: 1.1em;
+    text-shadow: 0px 0px 0px;
+  } 
+}

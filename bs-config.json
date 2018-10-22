@@ -1,0 +1,8 @@
+{
+  "port": 8000,
+  "files": [
+    "js/*.js",
+    "css/*.css",
+    "index.html"
+  ]
+}

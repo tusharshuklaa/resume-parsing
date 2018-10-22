@@ -21,3 +21,15 @@
   padding: 1.5em;
   text-align: justify;
 }
+
+%fixHead {
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+}
+
+%transyInput {
+  background-color: transparent;
+  border: 0;
+  color: white;
+}

@@ -5,20 +5,6 @@
 .resume-page {
   height: 100%;
   background-color: $baseBgColor;
-
-  .resume-tools {
-    @extend %bgWithColor;
-
-    .left-tools {
-      .resume-hint {
-        margin-left: 10px;
-
-        i.fa {
-          cursor: pointer;
-        }
-      }
-    }
-  }
   
   .resume-container {
     overflow: auto;
@@ -38,26 +24,6 @@
     .resume-form-info {
       #form-count {
         font-weight: 600;
-      }
-    }
-
-    .resume-pagination {
-      i.fa {
-        font-size: 1.2em;
-        cursor: pointer;
-
-        &.disabled {
-          color: grey;
-          pointer-events: none;
-        }
-      }
-
-      i.prev {
-        margin-right: $subtleMargin;
-      }
-
-      i.next {
-        margin-left: $subtleMargin;
       }
     }
   }

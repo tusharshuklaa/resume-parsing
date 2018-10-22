@@ -45,7 +45,7 @@ const ResumeParsing = {
   DOM: {
     resume: "#resume",
     currResumePage: ".resume-active",
-    resPagination: ".resume-pagination",
+    resPagination: ".left-tools",
     resPagePrev: ".prev.fa",
     resPageNext: ".next.fa",
     disabledResToggle: ".disabled",
@@ -57,7 +57,7 @@ const ResumeParsing = {
       return this.contextMenu + "-items";
     },
     cmListItems: ".dropdown-item",
-    footerFieldsCount: "#form-count",
+    progress: "#progressStatus",
     pageCount: "#page-count",
     reqFields: "#reqFields",
     optFields: "#optFields",
@@ -65,7 +65,8 @@ const ResumeParsing = {
     next: "#saveResume",
     fields: ".resume-field",
     saveForm: "#saveNCloseForm",
-    closeForm: "#closeForm"
+    closeForm: "#closeForm",
+    progressBar: ".resume-progress"
   }
 };
 
@@ -138,12 +139,51 @@ const ResumeParsing = {
   const isNumber = function (value) {
     return /^\d*\.?\d+$/.test(value);
   }
+
+  /**
+   *
+   *
+   * @param {MouseEvent} mouseEvent
+   * @param {HTMLElement} container
+   * @returns { x: Number, y: Number} Mouse Position Object { x: 0, y: 0}
+   */
+  const getMousePosition = function (mouseEvent) {
+    mouseEvent = mouseEvent || window.event;
+    let pageX = mouseEvent.pageX,
+      pageY = mouseEvent.pageY;
+
+    // IE 8
+    if (pageX === undefined) {
+      pageX = mouseEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+      pageY = mouseEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+
+    return {
+      x: pageX,
+      y: pageY
+    };
+
+    // let currentObject = container,
+    //   currentLeft = 0,
+    //   currentTop = 0;
+
+    // do {
+    //   currentLeft += currentObject.offsetLeft;
+    //   currentTop += currentObject.offsetTop;
+    //   currentObject = currentObject.offsetParent;
+    // } while (currentObject != document.body);
+    // return {
+    //   x: mouseEvent.pageX - currentLeft,
+    //   y: mouseEvent.pageY - currentTop
+    // }
+  }
   
   u.getId = (name) => makeDomElem(name, true);
   u.getClass = (name) => makeDomElem(name, false);
   u.Enum = eenum;
   u.isNumber = isNumber;
   u.getIdentifierName = removeDomIdentifier;
+  u.getMousePosition = getMousePosition;
 
 })(ResumeParsing);
 
@@ -168,6 +208,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -180,6 +221,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -192,6 +234,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "email"
     },
@@ -204,6 +247,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "number"
     },
@@ -216,6 +260,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -228,6 +273,7 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "select",
       "options": [
@@ -245,10 +291,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "state": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -257,10 +304,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "city": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -269,10 +317,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "lastCompanyName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -281,6 +330,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -293,6 +343,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -305,6 +356,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "number"
     },
@@ -317,6 +369,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "desc"
     },
@@ -329,10 +382,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "location": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -341,10 +395,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "schoolName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -353,6 +408,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -365,6 +421,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -377,6 +434,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "number"
     },
@@ -389,6 +447,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
@@ -401,6 +460,7 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "desc"
     },
@@ -413,10 +473,11 @@ ResumeParsing.AllFields = {
     "required": false,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
+      "classList": [],
       "placeholder" : "placeholder", 
       "type": "text"
     },
-    "canSuggest": true
+    "canSuggest": false
   }
 };
 
@@ -451,7 +512,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   const init = function() {
     _initHandlers();
     // Updating count of filled fields vs all fields
-    f.updateAllCount();
+    f.updateAllCount(true);
     // Updating current resume page number vs all resume pages
     _updatePageCount(_getPageCount());
     // Creating Preview Form dynamically
@@ -463,14 +524,13 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    *
    */
   const _initHandlers = function() {
-    /* 
-      Clears any existing selection 
-      Although clicking anywhere already removes selection,
-      this function explicitly does that for better accuracy in our local functions
-    */
-    $("html").on("mousedown", function() {
-      st.clear();
-    });
+    /** 
+     * Few variables required to hold click counters to support 3-click
+     */
+
+    let clickTimer,
+    mdCoords;
+    const clickDelay = 300;
 
     /**
      * Gets the selected text
@@ -478,13 +538,22 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
      * smart suggestions
      *
      * @param {MouseEvent} evt
-    */
-    $(elem.resume).on("mouseup", function(evt) {
-      const _txt = st.get();
-      if(_txt) {
-        cm.init(evt, ss.analyze(_txt), _txt);
-      }
-      // else deselection or empty/invalid text in select
+     */
+    $(elem.resume).on("mousedown", function(e) {
+      mdCoords = u.getMousePosition(e);
+    }).on("mouseup", function(e) {
+      clearInterval(clickTimer);
+      clickTimer = setTimeout(function () {
+        let _txt = st.get();
+        if (_txt) {
+          cm.init({
+            mouseDown: mdCoords,
+            evt: e,
+            suggestion: ss.analyze(_txt),
+            searchText: _txt
+          });
+        } // else deselection or empty/invalid text in select
+      }, clickDelay);
     });
 
     /**
@@ -569,7 +638,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {*} {total, curr}
    */
   const _updatePageCount = function({total, curr}) {
-    $(elem.pageCount).html(curr + "/" + total);
+    $(elem.pageCount).html(curr + " / " + total);
   };
 
   // Making above private functions public
@@ -595,9 +664,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     let e = "";
     // Optimized way to get selected text taking IE < 9 in consideration as well
     return window.getSelection ?
-      e = window.getSelection().toString() :
+      e = window.getSelection().toString().trim() :
       document.selection && "Control" != document.selection.type &&
-      (e = document.selection.createRange().text), "" !== e && e;
+      (e = (document.selection.createRange().text).trim()), "" !== e && e;
   };
 
   /**
@@ -652,11 +721,15 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {*} e
    * @param {*} suggestions
    */
-  const init = function (e, suggestions, txt) {
-    // console.log("Suggested fields for selection text " + txt + " is: ", suggestions);
+  const init = function ({
+    mouseDown: md, 
+    evt: e, 
+    suggestion: sug, 
+    searchText: txt}) {
+    // console.log("Suggested fields for selection text " + txt + " is: ", sug);
     selectedText = txt;
-    _createDom(suggestions);
-    _setPosition(e);
+    _createDom(sug);
+    _setPosition(e, md);
     _initHandlers();
   }
 
@@ -686,17 +759,15 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     let field = li.data("resumeField");
     field = field.replace(prefix, "");
     af[field].value = selectedText;
-    f.updateAllCount();
+    f.updateAllCount(true);
     _close();
   };
 
   const _getDomString = function (field) {
-    let marking = field.required ? "<sup>*</sup>" : "";
     const listItem = u.getIdentifierName(elem.cmListItems);
     return `
       <li class="${listItem} ${ field.value ? 'visited' : '' }" data-resume-field="${field.dom.id}">
         <span>${field.label}<span>
-        ${marking}
       </li>
     `;
   };
@@ -712,46 +783,121 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {string[]} suggestions
    */
   const _createDom = function(suggestions) {
-    if (suggestions && suggestions.length > 0) {
-      let suggested = "",
-          remianing = "";
-      for (let f in af) {
-        const field = af[f];
-        if (field.canSuggest){
-          if (suggestions.indexOf(f) >= 0) {
-            suggested = suggested + _getDomString(field);
-          } else {
-            remianing = remianing + _getDomString(field);
-          }
+    const obj = {
+      class: u.getIdentifierName(elem.contextMenu),
+      itemClass: u.getIdentifierName(elem.cmList),
+      suggestedReqdDone: "",
+      suggestedReqdLeft: "",
+      suggestedOptionalDone: "",
+      suggestedOptionalLeft: "",
+      requiredDone: "",
+      requiredLeft: "",
+      optionalDone: "",
+      optionalLeft: "",
+      reqDone: f.getReqDone().length,
+      reqTotal: f.getReq().length
+    };
+
+    for (let f in af) {
+      const field = af[f];
+      if (field.canSuggest) {
+        if (suggestions.indexOf(f) >= 0) {
+          _updateSuggested(obj, field);
+        } else {
+          _updateRemaining(obj, field);
         }
       }
-
-      const pClass = u.getIdentifierName(elem.contextMenu),
-            pItemClass = u.getIdentifierName(elem.cmList),
-            totalReqd = f.getReq().length,
-            filledReq = f.getReqDone().length,
-            cm = `
-              <div class="dropdown ${pClass}">
-                <ul class="dropdown-menu ${pItemClass}">
-                  ${suggested}
-                  ${remianing}
-                </ul>
-                <div class="reqd-info">
-                  Required<sup>*</sup> - ${filledReq}/${totalReqd}
-                </div>
-              </div>`;
-      $(elem.resume).append(cm);
-      body.addClass(cmOpen);
     }
+
+    $(elem.resume).append(_getCm(obj));
+    body.addClass(cmOpen);
   }
+
+  const _updateSuggested = function(obj, f) {
+    const domString = _getDomString(f);
+    if(f.value) {
+      if(f.isRequired) {
+        obj.suggestedReqdDone = obj.suggestedReqdDone + domString;
+      } else {
+        obj.suggestedOptionalDone = obj.suggestedOptionalDone + domString;
+      }
+    } else {
+      if (f.isRequired) {
+        obj.suggestedReqdLeft = obj.suggestedReqdLeft + domString;
+      } else {
+        obj.suggestedOptionalLeft = obj.suggestedOptionalLeft + domString;
+      }
+    }
+  };
+
+  const _updateRemaining = function (obj, f) {
+    const domString = _getDomString(f);
+    if (f.value) {
+      if (f.isRequired) {
+        obj.requiredDone = obj.requiredDone + domString;
+      } else {
+        obj.optionalDone = obj.optionalDone + domString;
+      }
+    } else {
+      if (f.isRequired) {
+        obj.requiredLeft = obj.requiredLeft + domString;
+      } else {
+        obj.optionalLeft = obj.optionalLeft + domString;
+      }
+    }
+  };
+
+  const _getCm = function({
+    class:c,
+    itemClass: ic,
+    suggestedReqdDone: srd,
+    suggestedReqdLeft: srl,
+    suggestedOptionalDone: sod,
+    suggestedOptionalLeft: sol,
+    requiredDone: rd,
+    requiredLeft: rl,
+    optionalDone: od,
+    optionalLeft: ol,
+    reqDone,
+    reqTotal
+  }) {
+      /**
+       * Suggested items are always given top priority
+       * Order in which context menu items are shows is as below:
+       * Sugested + Required + Unfilled
+       * Suggested + Optional + Unfilled
+       * Suggested + Required + Filled
+       * Suggested + Optional + Filled
+       * Required + Unfilled
+       * Optional + Unfilled
+       * Required + Filled
+       * Optional + Filled
+       */
+    return `
+      <div class="dropdown ${c}">
+        <ul class="dropdown-menu ${ic}">
+          ${srl}
+          ${sol}
+          ${srd}
+          ${sod}
+          ${rl}
+          ${ol}
+          ${rd}
+          ${od}
+        </ul>
+        <div class="reqd-info">
+          Required<sup>*</sup> - ${reqDone}/${reqTotal}
+        </div>
+      </div>`;
+  };
 
   /**
    * This function would open the context menu based on the mouse event passed to the funcion
    *
    * @param {MouseEvent} e
    */
-  const _setPosition = function (e) {
-    const pos = _getPosition(e);
+  const _setPosition = function (e, md) {
+    const pos = _getPosition(e, md);
     $(elem.contextMenu).css({
       top: pos.top,
       left: pos.left
@@ -766,24 +912,31 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {MouseEvent} e
    * @returns { Object {left: Number, right: Number}} { left: 0, right: 0 }
    */
-  const _getPosition = function(e) {
-    let mouseX = e.clientX,
-        mouseY = e.clientY - $("header").outerHeight();
+  const _getPosition = function(e, md) {
+    const mu = u.getMousePosition(e),
+    hh = $("header").outerHeight();
+    // To open CM always on right side of selection
+    // in case selection is done from right to left
+    // Expected is from left to right
+    let actual = {
+      x: Math.max(md.x, mu.x),
+      y: Math.max(md.y, mu.y) - hh
+    };
 
     // 200 is the max width of context menu
-    const widthDiff = (200 + mouseX) - $(document).outerWidth(),
+    const widthDiff = (200 + actual.x) - $(document).outerWidth(),
           // 250 is the max height of context menu
-          heightDiff = (250 + mouseY) - $(document).outerHeight();
+      heightDiff = (250 + actual.y) - $(document).outerHeight();
 
-    if(mouseX < 20) {
-      mouseX = 50;
+    if (actual.x < 20) {
+      actual.x = 50;
     }
     if (widthDiff > 0) {
-      mouseX = mouseX - widthDiff;
+      actual.x = actual.x - widthDiff;
     }
     return {
-      left: mouseX,
-      top: heightDiff > 0 ? mouseY - heightDiff : mouseY
+      left: actual.x,
+      top: heightDiff > 0 ? actual.y - 250 - hh - 20 : actual.y
     };
   };
 
@@ -929,7 +1082,6 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @returns Array of unique suggestions
    */
   const analyze = function(txt) {
-    txt = txt.trim();
     // Check if the selection contains a lot of words
     if (mayBeA(ac.List, txt)) {
       return _suggest(ac.List);
@@ -968,6 +1120,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         return _suggest(ac.Date);
       } else {
         console.info("No suggestions for '" + txt + "'");
+        // Suggest all
+        return _suggest();
       }
     }
   };
@@ -1167,10 +1321,14 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * Updates ALL FIELDS VS FILLED FIELDS
    *
    */
-  const updateFilledFields = function () {
-    $(elem.footerFieldsCount).html(
-      getAllFilled().length + "/" + tf
-    );
+  const updateFilledFields = function (onlyReq) {
+    const len = onlyReq ? getTotalRequiredFields().length : _allKeys.length,
+    pBar = $(elem.progressBar),
+    percnt = parseInt((getAllFilled().length / len) * 100) + "%",
+    iconW = pBar.prev().outerWidth(),
+    actualW = `calc(${percnt} - ${iconW}px)`;
+    pBar.width(actualW);
+    $(elem.progress).html(percnt + " Complete");
   }
 
   const _getFilteredObj = function(keys) {
@@ -1232,7 +1390,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
   const _handleFormSave = function() {
     _updateValuesFromForm();
-    updateFilledFields();
+    updateFilledFields(true);
   };
 
   const updateFormValues = function() {
@@ -1275,10 +1433,16 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
 $(() => {
   // Initialize UserForm on Document Ready
-  ResumeParsing.Main.init(); 
+  ResumeParsing.Main.init();
 });
 
 //#endregion
+
+window.onload = function() {
+  setTimeout(function() {
+    console.clear();
+  }, 500);
+};
 
 /** 
  * TODOs:
