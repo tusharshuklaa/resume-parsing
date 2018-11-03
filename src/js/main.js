@@ -66,7 +66,9 @@ const ResumeParsing = {
     fields: ".resume-field",
     saveForm: "#saveNCloseForm",
     closeForm: "#closeForm",
-    progressBar: ".resume-progress"
+    progressBar: ".resume-progress",
+    form: "#side-bar-form",
+    formItem: "form-item"
   }
 };
 
@@ -152,7 +154,7 @@ const ResumeParsing = {
     let pageX = mouseEvent.pageX,
       pageY = mouseEvent.pageY;
 
-    // IE 8
+    // IE 8 fallback
     if (pageX === undefined) {
       pageX = mouseEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
       pageY = mouseEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
@@ -162,20 +164,6 @@ const ResumeParsing = {
       x: pageX,
       y: pageY
     };
-
-    // let currentObject = container,
-    //   currentLeft = 0,
-    //   currentTop = 0;
-
-    // do {
-    //   currentLeft += currentObject.offsetLeft;
-    //   currentTop += currentObject.offsetTop;
-    //   currentObject = currentObject.offsetParent;
-    // } while (currentObject != document.body);
-    // return {
-    //   x: mouseEvent.pageX - currentLeft,
-    //   y: mouseEvent.pageY - currentTop
-    // }
   }
   
   u.getId = (name) => makeDomElem(name, true);
@@ -199,7 +187,20 @@ ResumeParsing.AllFields = {
    * -> These also helps in keeping count of values filled till now
    * -> Main Object has 'like' property that puts it under possible categories
    * -> 'canSuggest' property enables to mute a property from being suggested
-   * 
+   * -> Obj = {
+   *      like: "array of strings - matching categories",
+   *      value: "value of field",
+   *      label: "display label of field",
+   *      required: "boolean to tell if this is a required field",
+   *      category: "category of the field",
+   *      dom: {
+   *        classList: "Array of strings that holds class values",
+   *        placeholder: "Placeholder for field",
+   *        type: "type of DOM element - text/email/number/select/desc",
+   *        order: "order of appearance in each category from top to bottom"
+   *      },
+   *      canSuggest: "boolean to mute suggestions"
+   * }
    */
   "firstName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -208,9 +209,13 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text"
+      "classList": [
+        "input-headline",
+        "half-width"
+      ],
+      "placeholder" : "First Name", 
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "1"
     },
     "canSuggest": true
   },
@@ -221,9 +226,27 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
+      "classList": [
+        "input-headline",
+        "half-width"
+      ],
+      "placeholder" : "Last Name", 
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "2"
+    },
+    "canSuggest": true
+  },
+  "phone": {
+    "like": [ResumeParsing.AllCategoryNames.MobileNumber, ResumeParsing.AllCategoryNames.Number],
+    "value": "",
+    "label": "Mobile No",
+    "required": true,
+    "category": ResumeParsing.FieldCategories.pe,
+    "dom": {
       "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text"
+      "placeholder": "placeholder",
+      "type": "tel",
+      "order": ResumeParsing.FieldCategories.pe + "3"
     },
     "canSuggest": true
   },
@@ -235,21 +258,9 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
       "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "email"
-    },
-    "canSuggest": true
-  },
-  "phone": {
-    "like": [ResumeParsing.AllCategoryNames.MobileNumber, ResumeParsing.AllCategoryNames.Number],
-    "value": "",
-    "label": "Mobile No",
-    "required": true,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "number"
+      "placeholder" : "", 
+      "type": "email",
+      "order": ResumeParsing.FieldCategories.pe + "4"
     },
     "canSuggest": true
   },
@@ -262,7 +273,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "5"
     },
     "canSuggest": true
   },
@@ -280,7 +292,36 @@ ResumeParsing.AllFields = {
         "male",
         "female",
         "other"
-      ]
+      ],
+      "order": ResumeParsing.FieldCategories.pe + "6"
+    },
+    "canSuggest": false
+  },
+  "city": {
+    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
+    "value": "",
+    "label": "City",
+    "required": false,
+    "category": ResumeParsing.FieldCategories.pe,
+    "dom": {
+      "classList": [],
+      "placeholder": "placeholder",
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "7"
+    },
+    "canSuggest": false
+  },
+  "state": {
+    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
+    "value": "",
+    "label": "State",
+    "required": false,
+    "category": ResumeParsing.FieldCategories.pe,
+    "dom": {
+      "classList": [],
+      "placeholder": "placeholder",
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "8"
     },
     "canSuggest": false
   },
@@ -293,33 +334,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
-    },
-    "canSuggest": false
-  },
-  "state": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "State",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text"
-    },
-    "canSuggest": false
-  },
-  "city": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "City",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pe + "9"
     },
     "canSuggest": false
   },
@@ -330,9 +346,12 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
-      "classList": [],
+      "classList": [
+        "input-headline"
+      ],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pr + "1"
     },
     "canSuggest": true
   },
@@ -345,7 +364,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pr + "2"
     },
     "canSuggest": true
   },
@@ -358,7 +378,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "number"
+      "type": "date",
+      "order": ResumeParsing.FieldCategories.pr + "3"
     },
     "canSuggest": true
   },
@@ -371,7 +392,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "desc"
+      "type": "desc",
+      "order": ResumeParsing.FieldCategories.pr + "4"
     },
     "canSuggest": true
   },
@@ -384,7 +406,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pr + "5"
     },
     "canSuggest": false
   },
@@ -397,20 +420,24 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.pr + "6"
     },
     "canSuggest": false
   },
-  "schoolName": {
+  "collegeName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
     "value": "",
-    "label": "School Name",
+    "label": "College Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text"
+      "classList": [
+        "input-headline"
+      ],
+      "placeholder" : "Institute/University Name", 
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.edu + "1"
     },
     "canSuggest": true
   },
@@ -421,13 +448,17 @@ ResumeParsing.AllFields = {
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
-      "classList": [],
+      "classList": [
+        "input-headline",
+        "heading-mini"
+      ],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.edu + "2"
     },
     "canSuggest": true
   },
-  "schoolDuration": {
+  "collegeDuration": {
     "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
     "value": "",
     "label": "Duration",
@@ -436,7 +467,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "number"
+      "type": "date",
+      "order": ResumeParsing.FieldCategories.edu + "3"
     },
     "canSuggest": true
   },
@@ -449,11 +481,12 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.edu + "4"
     },
     "canSuggest": true
   },
-  "schoolDetails": {
+  "collegeDetails": {
     "like": [ResumeParsing.AllCategoryNames.Description, ResumeParsing.AllCategoryNames.String],
     "value": "",
     "label": "Details",
@@ -462,7 +495,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "desc"
+      "type": "desc",
+      "order": ResumeParsing.FieldCategories.edu + "5"
     },
     "canSuggest": true
   },
@@ -475,7 +509,8 @@ ResumeParsing.AllFields = {
     "dom": { 
       "classList": [],
       "placeholder" : "placeholder", 
-      "type": "text"
+      "type": "text",
+      "order": ResumeParsing.FieldCategories.edu + "6"
     },
     "canSuggest": false
   }
@@ -758,8 +793,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     const li = $(elm).closest(elem.cmListItems);
     let field = li.data("resumeField");
     field = field.replace(prefix, "");
-    af[field].value = selectedText;
-    f.updateAllCount(true);
+    f.updateToForm(field, selectedText);
     _close();
   };
 
@@ -1238,7 +1272,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   AllFields: af,
   DOM: elem,
   Utility: u,
-  IdPrefix: pFix
+  IdPrefix: pFix,
+  FieldCategories: cat
 }) {
 
   //#region AllFields filter functions
@@ -1335,82 +1370,178 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     $(elem.progress).html(percnt + " Complete");
   }
 
-  const _getFilteredObj = function(keys) {
-    keys.reduce((acc, key) => {
-      acc[key] = af[key];
+  // const _getFilteredObj = function(keys) {
+  //   keys.reduce((acc, key) => {
+  //     acc[key] = af[key];
+  //     return acc;
+  //   }, {});
+  // };
+
+  // const createForm = function() {
+  //   $(elem.reqFields).html(_createFormGroup(getTotalRequiredFields()));
+  //   $(elem.optFields).html(_createFormGroup(getTotalOptionalFields()));
+  // };
+
+  // const _createFormGroup = function(keys) {
+  //   const fieldClass = u.getIdentifierName(elem.fields);
+  //   let form = "";
+  //   keys.forEach((k) => {
+  //     const o = af[k],
+  //           isRequired = o.required ? "required" : "";
+  //     let inputField = "",
+  //         isHalfWidth = "half-width";
+  //     if (o.dom.type === "select") {
+  //       let options = "";
+  //       o.dom.options.forEach(z => {
+  //         options = options + `<option value="${z}">${z}</option>`;
+  //       });
+  //       inputField = `<select class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired}>${options}</select>`;
+  //     } else if (o.dom.type === "desc") {
+  //       isHalfWidth = "";
+  //       inputField = `<textarea class="form-control ${fieldClass}" rows="3" id="${o.dom.id}" value="${o.value}" ${isRequired}></textarea>`;
+  //     } else {
+  //       inputField = `<input type="${o.dom.type}" class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired} />`;
+  //     }
+  //     form = form + `
+  //       <div class="form-group ${isHalfWidth}">
+  //         <label for="${o.dom.id}">${o.label}: </label>
+  //         ${inputField}
+  //       </div>
+  //     `;
+  //   });
+  //   return form;
+  // };
+
+  const _initHandlers = function () {
+    // Add all form elem evt handlers here
+    $(elem.form).on("keyup", "." + elem.formItem, function(ev) {
+      const key = ev.which || ev.key;
+      if(key !== 13) {
+        console.log("keyup event from side bar: ", ev);
+        // update mani object here
+      }
+    });
+  };
+
+  const create = function () {
+    // Append dynamically created form in side bar
+    $(elem.form).html(_getHtml());
+
+    // Attach event handlers on dynamically added elements in side bar
+    _initHandlers();
+  };
+
+  const _getHtml = function () {
+    const _personal = _makeHtml(cat.pe),
+      _proff = _makeHtml(cat.pr),
+      _edu = _makeHtml(cat.edu);
+
+    return _personal + _proff + _edu;
+  };
+
+  const _makeHtml = function (type) {
+    let className = type + "-info",
+      keys;
+    const obj = _filterData(type);
+    if (obj && (keys = _orderObjKeys(obj), keys.length > 0)) {
+      let _content = "";
+      keys.forEach((k) => {
+        const o = obj[k],
+        _dom = o.dom,
+        placeholder = _dom.placeholder && _dom.placeholder.length > 0 ? _dom.placeholder : o.label;
+        if (_dom.type !== "desc") {
+          _content = _content +
+            `<input id="${ _dom.id }" class="${ elem.formItem } ${ _dom.classList.join(" ")}" type="${ _dom.type }" placeholder="${ placeholder }">`;
+        } else {
+          _content = _content +
+          `<section class="descriptionList">
+            <span>${o.label}</span>
+            <textarea id="${ _dom.id }" type="text" placeholder="${ placeholder }"></textarea>
+          </section>`;
+        }
+      });
+      return `<section class="info-section ${ className }">${ _content }</section>`;
+    } else {
+      return "";
+    }
+  };
+
+  const _filterData = function (type) {
+    return _allKeys.reduce((acc, cv) => {
+      const o = af[cv];
+      if (o.category === type && o.required) {
+        acc[cv] = o;
+      }
       return acc;
     }, {});
   };
 
-  const createForm = function() {
-    $(elem.reqFields).html(_createFormGroup(getTotalRequiredFields()));
-    $(elem.optFields).html(_createFormGroup(getTotalOptionalFields()));
+  const _orderObjKeys = function(obj) {
+    if(!obj) {
+      throw "No object provided for ordering";
+    }
+
+    return Object.keys(obj).sort((a, b) => {
+      const objA = af[a],
+      objB = af[b],
+      orderA = objA.dom.order.charAt(objA.dom.order.length - 1),
+      orderB = objB.dom.order.charAt(objA.dom.order.length - 1);
+
+      return orderA > orderB;
+    });
   };
 
-  const _createFormGroup = function(keys) {
-    const fieldClass = u.getIdentifierName(elem.fields);
-    let form = "";
-    keys.forEach((k) => {
-      const o = af[k],
-            isRequired = o.required ? "required" : "";
-      let inputField = "",
-          isHalfWidth = "half-width";
-      if (o.dom.type === "select") {
-        let options = "";
-        o.dom.options.forEach(z => {
-          options = options + `<option value="${z}">${z}</option>`;
-        });
-        inputField = `<select class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired}>${options}</select>`;
-      } else if (o.dom.type === "desc") {
-        isHalfWidth = "";
-        inputField = `<textarea class="form-control ${fieldClass}" rows="3" id="${o.dom.id}" value="${o.value}" ${isRequired}></textarea>`;
+  // const _initHandlers = function() {
+  //   $(elem.saveForm).on("click", _handleFormSave);
+  //   $(elem.closeForm).on("click", _destroyHandlers);
+  // };
+
+  // const _destroyHandlers = function() {
+  //   $(elem.saveForm).off("click", _handleFormSave);
+  //   $(elem.closeForm).off("click", _destroyHandlers);
+  // };
+
+  // const _handleFormSave = function() {
+  //   _updateValuesFromForm();
+  //   updateFilledFields(true);
+  // };
+
+  // const updateFormValues = function() {
+  //   _allKeys.forEach((k) => {
+  //     const o = af[k];
+  //     $("#" + o.dom.id).val(o.value);
+  //   });
+  // };
+
+  // const _updateValuesFromForm = function() {
+  //   $(elem.fields).each(function() {
+  //     const elem = $(this),
+  //     id = elem.attr("id").replace(pFix, "");
+  //     af[id].value = elem.val();
+  //   });
+  // };
+
+  const updateToForm = function (field, txt) {
+    const item = af[field];
+    // Updating the original object
+    item.value = txt;
+
+    if (item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1) {
+      // Making a Date object out of Date string
+      const _temp = new Date(txt);
+      if (_temp != 'Invalid Date') {
+        txt = _temp;
       } else {
-        inputField = `<input type="${o.dom.type}" class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired} />`;
+        // Show error of invalid date format
+        console.warn("Invalid date", txt);
       }
-      form = form + `
-        <div class="form-group ${isHalfWidth}">
-          <label for="${o.dom.id}">${o.label}: </label>
-          ${inputField}
-        </div>
-      `;
-    });
-    return form;
+    }
+    // Updating the corresponding form DOM element
+    $("#" + item.dom.id).val(txt);
+    f.updateAllCount(true);
   };
 
-  const init = function() {
-    _initHandlers();
-    updateFormValues();
-  };
-
-  const _initHandlers = function() {
-    $(elem.saveForm).on("click", _handleFormSave);
-    $(elem.closeForm).on("click", _destroyHandlers);
-  };
-
-  const _destroyHandlers = function() {
-    $(elem.saveForm).off("click", _handleFormSave);
-    $(elem.closeForm).off("click", _destroyHandlers);
-  };
-
-  const _handleFormSave = function() {
-    _updateValuesFromForm();
-    updateFilledFields(true);
-  };
-
-  const updateFormValues = function() {
-    _allKeys.forEach((k) => {
-      const o = af[k];
-      $("#" + o.dom.id).val(o.value);
-    });
-  };
-
-  const _updateValuesFromForm = function() {
-    $(elem.fields).each(function() {
-      const elem = $(this),
-      id = elem.attr("id").replace(pFix, "");
-      af[id].value = elem.val();
-    });
-  };
+  const updateFromSidebar = function() {};
 
   const validateForm = function() {};
 
@@ -1425,9 +1556,10 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   f.getAllDone = getAllFilled;
   f.getAllLeft = getAllEmpty;
   f.updateAllCount = updateFilledFields;
-  f.create = createForm;
-  f.init = init;
+  f.create = create;
+  // f.init = init;
   f.isValid = validateForm;
+  f.updateToForm = updateToForm;
   
 })(ResumeParsing);
 
@@ -1442,11 +1574,11 @@ $(() => {
 
 //#endregion
 
-window.onload = function() {
-  setTimeout(function() {
-    console.clear();
-  }, 500);
-};
+// window.onload = function() {
+//   setTimeout(function() {
+//     console.clear();
+//   }, 500);
+// };
 
 /** 
  * TODOs:

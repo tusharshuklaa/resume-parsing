@@ -16,6 +16,17 @@ section.side-bar-content .info-section > input, section.side-bar-content .info-s
   border: 0;
   color: white; }
 
+section.side-bar-content .info-section > input, section.side-bar-content .info-section .descriptionList > input {
+  padding: 0px 5px; }
+  section.side-bar-content .info-section > input::-webkit-input-placeholder, section.side-bar-content .info-section .descriptionList > input::-webkit-input-placeholder {
+    color: #ffffff; }
+  section.side-bar-content .info-section > input:-moz-placeholder, section.side-bar-content .info-section .descriptionList > input:-moz-placeholder {
+    color: #ffffff; }
+  section.side-bar-content .info-section > input::-moz-placeholder, section.side-bar-content .info-section .descriptionList > input::-moz-placeholder {
+    color: #ffffff; }
+  section.side-bar-content .info-section > input:-ms-input-placeholder, section.side-bar-content .info-section .descriptionList > input:-ms-input-placeholder {
+    color: #ffffff; }
+
 .resume-container {
   display: -webkit-box;
   display: -moz-box;
@@ -212,19 +223,17 @@ section.side-bar-content {
   section.side-bar-content .info-section {
     padding: 20px 0;
     border-bottom: 1px solid #ffffff; }
-    section.side-bar-content .info-section > input {
-      width: 100%; }
-      section.side-bar-content .info-section > input::-webkit-input-placeholder {
-        color: #ffffff; }
-      section.side-bar-content .info-section > input:-moz-placeholder {
-        color: #ffffff; }
-      section.side-bar-content .info-section > input::-moz-placeholder {
-        color: #ffffff; }
-      section.side-bar-content .info-section > input:-ms-input-placeholder {
-        color: #ffffff; }
-  section.side-bar-content .input-headline {
-    font-size: 1.1em;
-    text-shadow: 0px 0px 0px; }
+    section.side-bar-content .info-section > input.half-width {
+      max-width: 50%; }
+    section.side-bar-content .info-section > input.input-headline {
+      font-size: 1.1em;
+      text-shadow: 0px 0px 0px; }
+    section.side-bar-content .info-section .descriptionList {
+      padding-top: 20px; }
+      section.side-bar-content .info-section .descriptionList > span {
+        display: block;
+        padding: 0px 5px;
+        text-shadow: 0px 0px 0px; }
 
 .rp-context-menu {
   top: 0;

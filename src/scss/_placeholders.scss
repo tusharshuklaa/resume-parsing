@@ -33,3 +33,12 @@
   border: 0;
   color: white;
 }
+
+%input {
+  @extend %transyInput;
+  padding: 0px 5px;
+
+  @include placeholder() {
+    color: $white;
+  }
+}

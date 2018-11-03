@@ -59,23 +59,29 @@ section.side-bar-content {
     border-bottom: 1px solid $white;
 
     > input {
-      @extend %transyInput;
-      width: 100%;
+      @extend %input;
 
-      @include placeholder() {
-        color: $white;
+      &.half-width {
+        max-width: 50%;
+      }
+
+      &.input-headline {
+        font-size: 1.1em;
+        text-shadow: 0px 0px 0px;
       }
     }
 
     .descriptionList {
+      padding-top: 20px;
+
+      > span {
+        display: block;
+        padding: 0px 5px;
+        text-shadow: 0px 0px 0px;
+      }
       > input {
-        @extend %transyInput;
+        @extend %input;
       }
     }
   }
-
-  .input-headline {
-    font-size: 1.1em;
-    text-shadow: 0px 0px 0px;
-  } 
 }
