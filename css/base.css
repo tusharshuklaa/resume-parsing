@@ -246,6 +246,15 @@ section.side-bar-content {
     section.side-bar-content .info-section > input.half-width {
       max-width: 50%;
       float: left; }
+    section.side-bar-content .info-section > input[type="date"]:before {
+      color: white;
+      content: attr(placeholder) !important;
+      margin-right: 0.5em;
+      position: absolute;
+      background-color: #A56BD2;
+      cursor: text; }
+    section.side-bar-content .info-section > input[type="date"]:focus:before {
+      content: '' !important; }
     section.side-bar-content .info-section > textarea {
       resize: none; }
     section.side-bar-content .info-section .descriptionList {

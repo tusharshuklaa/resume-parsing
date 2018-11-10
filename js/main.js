@@ -86,20 +86,21 @@ const ResumeParsing = {
    * @param {Boolean} isUnique
    * @returns {String} DOM Identifier
    */
+  
   const makeDomElem = function(name, isUnique) {
     const pre = isUnique ? "#" : ".";
     return pre + name;
-  };
+  },
 
   /**
    * A small helper function to remove either '.' or '#' from the string provided
    *
-   * @param {*} elem
-   * @returns
+   * @param {String} elem
+   * @returns {String} Element Identifier name
    */
-  const removeDomIdentifier = function(elem) {
+  removeDomIdentifier = function(elem) {
     return elem.substring(1, elem.length);
-  }
+  },
 
   /**
    * Takes an array of String and converts it to an Enum(kind of Enum as JS does not support Enums at all)
@@ -109,7 +110,7 @@ const ResumeParsing = {
    * @param {Boolean} isNum
    * @returns {Enum} Enum Object
    */
-  const eenum = function(items, isNum) {
+  eenum = function(items, isNum) {
     if (!items || items.length <= 0) {
       throw "No arguments passed to Enum";
     }
@@ -131,7 +132,7 @@ const ResumeParsing = {
       }, {});
     }
     
-  }
+  },
 
   /**
    * Checks if the given argument is a number
@@ -139,18 +140,18 @@ const ResumeParsing = {
    * @param {String} value
    * @returns {Boolean}
    */
-  const isNumber = function (value) {
+  isNumber = function (value) {
     return /^\d*\.?\d+$/.test(value);
-  }
+  },
 
   /**
-   *
-   *
+   * Function that gets the mouse position coordinates
+   * This also keeps page scroll in account
    * @param {MouseEvent} mouseEvent
    * @param {HTMLElement} container
    * @returns { x: Number, y: Number} Mouse Position Object { x: 0, y: 0}
    */
-  const getMousePosition = function (mouseEvent) {
+  getMousePosition = function (mouseEvent) {
     mouseEvent = mouseEvent || window.event;
     let pageX = mouseEvent.pageX,
       pageY = mouseEvent.pageY;
@@ -165,11 +166,16 @@ const ResumeParsing = {
       x: pageX,
       y: pageY
     };
-  }
+  },
 
-  const adjustHeight = function(_t){
-    $(_t).height(0).height(_t.scrollHeight);
-  }
+  /**
+   * The function accepts javascript element as parameter and adjusts its height as per content
+   * This functionality is mainly elements like textarea which do not have ability for height:auto in CSS
+   * @param {Element} _elem
+   */
+  adjustHeight = function (_elem){
+    $(_elem).height(0).height(_elem.scrollHeight);
+  };
   
   u.getId = (name) => makeDomElem(name, true);
   u.getClass = (name) => makeDomElem(name, false);
@@ -555,13 +561,13 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     f.init();
     // Updating current resume page number vs all resume pages
     _updatePageCount(_getPageCount());
-  };
+  },
 
   /**
    * Initiates all event handlers on the page
    *
    */
-  const _initHandlers = function() {
+  _initHandlers = function() {
     /** 
      * Few variables required to hold click counters to support 3-click
      */
@@ -611,7 +617,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     $(elem.preview).on("click", function() {
       f.init();
     });
-  };
+  },
 
   /**
    * Toggles the resume page
@@ -620,7 +626,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {MouseEvent} e
    * @param {Boolean} isNext
    */
-  const _updatePage = function(e, isNext) {
+  _updatePage = function(e, isNext) {
     const currResume = $(elem.currResumePage);
     let goToElem = isNext ? currResume.next() : currResume.prev();
     if (goToElem && goToElem.length > 0) {
@@ -642,7 +648,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       }
       _updatePageCount(_getPageCount());
     }
-  };
+  },
 
   /**
    * Returns an object with 2 properties namely
@@ -651,7 +657,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    *
    * @returns {Object}
    */
-  const _getPageCount = function() {
+  _getPageCount = function() {
     const kids = $(elem.resume).children();
     let pagesCount = 0,
     currPage = 0;
@@ -665,7 +671,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       total: pagesCount,
       curr: currPage
     };
-  };
+  },
 
   /**
    * Takes in object with 2 properties namely
@@ -675,7 +681,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    *
    * @param {*} {total, curr}
    */
-  const _updatePageCount = function({total, curr}) {
+  _updatePageCount = function({total, curr}) {
     $(elem.pageCount).html(curr + " / " + total);
   };
 
@@ -765,50 +771,49 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     evt: e, 
     suggestion: sug, 
     searchText: txt}) {
-    // console.log("Suggested fields for selection text " + txt + " is: ", sug);
     selectedText = txt;
     _createDom(sug);
     _setPosition(e, md);
     _initHandlers();
-  }
+  },
 
-  const body = $("body");
-  const cmOpen = u.getIdentifierName(elem.cmOpen);
+  body = $("body"),
+  cmOpen = u.getIdentifierName(elem.cmOpen),
 
   /**
    * Initiates all event handlers on context menu
    *
    */
-  const _initHandlers = function() {
+  _initHandlers = function() {
     body.on("mousedown", _closeContextMenu);
     $(elem.cmListItems).on("click", _handleCmClick);
-  };
+  },
 
   /**
    * Destroys all event handlers placed on context menu
    *
    */
-  const _destroyHandlers = function() {
+  _destroyHandlers = function() {
     body.off("mousedown", _closeContextMenu);
-  };
+  },
 
-  const _handleCmClick = function(e) {
+  _handleCmClick = function(e) {
     const elm = e.target || e.srcElement;
     const li = $(elm).closest(elem.cmListItems);
     let field = li.data("resumeField");
     field = field.replace(prefix, "");
     f.updateToForm(field, selectedText);
     _close();
-  };
+  },
 
-  const _getDomString = function (field) {
+  _getDomString = function (field) {
     const listItem = u.getIdentifierName(elem.cmListItems);
     return `
       <li class="${listItem} ${ field.value ? 'visited' : '' }" data-resume-field="${field.dom.id}">
         <span>${field.label}<span>
       </li>
     `;
-  };
+  },
 
   /**
    * Takes array of strings (suggested field names)
@@ -820,7 +825,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    *
    * @param {string[]} suggestions
    */
-  const _createDom = function(suggestions) {
+  _createDom = function(suggestions) {
     const obj = {
       class: u.getIdentifierName(elem.contextMenu),
       itemClass: u.getIdentifierName(elem.cmList),
@@ -849,9 +854,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
     $(elem.resume).append(_getCm(obj));
     body.addClass(cmOpen);
-  }
+  },
 
-  const _updateSuggested = function(obj, f) {
+  _updateSuggested = function(obj, f) {
     const domString = _getDomString(f);
     if(f.value) {
       if(f.isRequired) {
@@ -866,9 +871,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         obj.suggestedOptionalLeft = obj.suggestedOptionalLeft + domString;
       }
     }
-  };
+  },
 
-  const _updateRemaining = function (obj, f) {
+  _updateRemaining = function (obj, f) {
     const domString = _getDomString(f);
     if (f.value) {
       if (f.isRequired) {
@@ -883,9 +888,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         obj.optionalLeft = obj.optionalLeft + domString;
       }
     }
-  };
+  },
 
-  const _getCm = function({
+  _getCm = function({
     class:c,
     itemClass: ic,
     suggestedReqdDone: srd,
@@ -927,21 +932,21 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
           Required<sup>*</sup> - ${reqDone}/${reqTotal}
         </div>
       </div>`;
-  };
+  },
 
   /**
    * This function would open the context menu based on the mouse event passed to the funcion
    *
    * @param {MouseEvent} e
    */
-  const _setPosition = function (e, md) {
+  _setPosition = function (e, md) {
     const pos = _getPosition(e, md);
     $(elem.contextMenu).css({
       top: pos.top,
       left: pos.left
     });
     body.addClass(cmOpen);
-  };
+  },
 
   /**
    * Gets most suitable X & Y coordinates for context menu to be placed.
@@ -950,7 +955,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {MouseEvent} e
    * @returns { Object {left: Number, right: Number}} { left: 0, right: 0 }
    */
-  const _getPosition = function(e, md) {
+  _getPosition = function(e, md) {
     const mu = u.getMousePosition(e),
     hh = $("header").outerHeight();
     // To open CM always on right side of selection
@@ -976,16 +981,16 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       left: actual.x,
       top: heightDiff > 0 ? actual.y - 250 - hh - 20 : actual.y
     };
-  };
+  },
 
   /**
    * This function would remove all of the open context menus from the page
    *
    */
-  const _close = function() {
+  _close = function() {
     body.removeClass(elem.cmOpen);
     $(elem.contextMenu).remove();
-  };
+  },
 
   /**
    * Closes context menu completely and 
@@ -993,7 +998,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    *
    * @param {MouseEvent} e
    */
-  const _closeContextMenu = function (e) {
+  _closeContextMenu = function (e) {
     const _elm = e.target || e.srcElement,
           cmElem = $(_elm).closest(elem.contextMenu);
     // Check if the mousedown event has happened from within the context menu
@@ -1093,7 +1098,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       }
     }
     return prediction;
-  };
+  },
 
   /**
    * Checks if given text is a list or not
@@ -1101,7 +1106,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String} s
    * @returns {Boolean} Boolean
    */
-  const _checkListType = function(s) {
+  _checkListType = function(s) {
     // A separator to determine line breaks for strings items
     const separator = "_|--|_";
     // RegEx for non-keyboard characters
@@ -1111,7 +1116,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     let x = s.replace(keyBoardKeys, separator);
     x = x.replace(newLineRule, separator);
     return x && x.indexOf(separator) > -1;
-  }
+  },
 
   /**
    * Orders analysis of sub-analysis function and gives suggestion accordingly
@@ -1119,7 +1124,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String} txt
    * @returns Array of unique suggestions
    */
-  const analyze = function(txt) {
+  analyze = function(txt) {
     // Check if the selection contains a lot of words
     if (mayBeA(ac.List, txt)) {
       return _suggest(ac.List);
@@ -1134,7 +1139,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         return analyzeShortString(txt);
       }
     }
-  };
+  },
 
   /**
    * Analyzes all number types and suggests fields accordingly
@@ -1142,7 +1147,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String} txt
    * @returns {String[]} Array of unique suugestions
    */
-  const analyzeNumber = function(txt) {
+  analyzeNumber = function(txt) {
     if (mayBeA(ac.Number, txt)) {
       if(mayBeA(ac.SmallNumber, txt)) {
         return _suggest(ac.SmallNumber);
@@ -1162,7 +1167,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         return _suggest();
       }
     }
-  };
+  },
 
   /**
    * Returns a unique set of all sugestions related to numbers
@@ -1170,7 +1175,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {Number} excludeType
    * @returns {String[]} Array of unique number suggestions
    */
-  const _suggestAllNumberTypes = function(excludeTypes) {
+  _suggestAllNumberTypes = function(excludeTypes) {
     // Created a Set of suggestions to ensure unique values
     let uniqueSuggestions = new Set();
 
@@ -1194,7 +1199,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
     let allNumericSuggestions = Array.from(uniqueSuggestions);
     return allNumericSuggestions;
-  };
+  },
 
   /**
    * Analyzes short string types and suggests fields accordingly
@@ -1202,7 +1207,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String} txt
    * @returns {String[]} Array of unique suugestions
    */
-  const analyzeShortString = function(txt) {
+  analyzeShortString = function(txt) {
     if (mayBeA(ac.Email, txt)) {
       return _suggest(ac.Email);
     } else if (mayBeA(ac.Name, txt)) {
@@ -1212,21 +1217,21 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       // Suggest all
       return _suggest();
     }
-  };
+  },
 
   /**
    * Suggests all fields in form
    * Useful when all field items are to be suggested
    * @returns {String[]} Array of unique suggestions
    */
-  const getAllFieldsForSuggestion = function() {
+  getAllFieldsForSuggestion = function() {
     return Object.keys(af).reduce((acc, cv) => {
       if(af[cv].canSuggest) {
         acc.push(cv);
       }
       return acc;
     }, []);
-  };
+  },
 
   /**
    * Check if all of the items have been suggested
@@ -1234,9 +1239,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String[]} arr
    * @returns {Boolean} Boolean
    */
-  const ifAllSuggested = function (arr) {
+  ifAllSuggested = function (arr) {
     return arr.length === (getAllFieldsForSuggestion().length);
-  }
+  },
 
   /**
    * Suggests fields based on type provided
@@ -1244,7 +1249,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {Number} type
    * @returns {String[]} Array of unique suggestions
    */
-  const _suggest = function(type) {
+  _suggest = function(type) {
     let sug = [];
     if(type) {
       console.log("Suggestions for type '"+ ac[type] + "'");
@@ -1276,77 +1281,77 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   FormUtilities: fu
 }) {
 
-  const _allKeys = Object.keys(af);
+  const _allKeys = Object.keys(af),
 
   /**
    * Get all required fields count
    *
    * @returns {Array<string>} keys
    */
-  const getTotalRequiredFields = function () {
+  getTotalRequiredFields = function () {
     return _allKeys.filter(k => af[k].required);
-  };
+  },
 
   /**
    * Get all optional fields count
    *
    * @returns {Array<string>} keys
    */
-  const getTotalOptionalFields = function () {
+  getTotalOptionalFields = function () {
     return _allKeys.filter(k => !af[k].required);
-  };
+  },
 
   /**
    * Get count of all required fields with values filled
    *
    * @returns {Array<string>} keys
    */
-  const getFilledRequiredFields = function () {
+  getFilledRequiredFields = function () {
     return _allKeys.filter(k => af[k].required && !!af[k].value);
-  };
+  },
 
   /**
    * Get count of all required fields with empty/null values
    *
    * @returns {Array<string>} keys
    */
-  const getRemainingRequiredFields = function () {
+  getRemainingRequiredFields = function () {
     return _allKeys.filter(k => af[k].required && !af[k].value);
-  };
+  },
 
   /**
    * Get count of all optional fields with values filled
    *
    * @returns {Array<string>} keys
    */
-  const getFilledOptionalFields = function () {
+  getFilledOptionalFields = function () {
     return _allKeys.filter(k => !af[k].required && !!af[k].value);
-  };
+  },
 
   /**
    * Get count of all optional fields with empty / null values
    *
    * @returns {Array<string>} keys
    */
-  const getRemainingOptionalFields = function () {
+  getRemainingOptionalFields = function () {
     return _allKeys.filter(k => !af[k].required && !af[k].value);
-  };
+  },
 
   /**
    * Get count of all filled fields
    *
    * @returns {Array<string>} keys
    */
-  const getAllFilled = function () {
+  getAllFilled = function () {
     return _allKeys.filter(k => !!af[k].value);
-  };
+  },
 
   /**
    * Get count of all empty / null fields
    *
    * @returns {Number} length
    */
-  const getAllEmpty = function () {
+  getAllEmpty = function () {
     return _allKeys.filter(k => !af[k].value);
   };
 
@@ -1376,40 +1381,44 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
 
   const _allKeys = Object.keys(af),
-  tf = _allKeys.length;
+  tf = _allKeys.length,
 
   /**
-   * Updates ALL FIELDS VS FILLED FIELDS
-   *
+   * The function reads all filled values and updates the progress bar accordingly
+   * Accepts a boolean param that tells wether to include only required fields in calculation or not
+   * @param {Boolean} onlyReq
    */
-  const updateFilledFields = function (onlyReq) {
+  updateFilledFields = function (onlyReq) {
     const len = onlyReq ? fu.getReq().length : _allKeys.length,
     pBar = $(elem.progressBar),
-      percnt = parseInt((fu.getAllDone().length / len) * 100) + "%",
+    percnt = parseInt((fu.getAllDone().length / len) * 100) + "%",
     iconW = pBar.prev().outerWidth(),
     actualW = `calc(${percnt} - ${iconW}px)`;
     pBar.width(actualW);
+    // Adding final text to the progress bar
     $(elem.progress).html(percnt + " Complete");
-  }
+  },
 
-  const init = function() {
+  init = function() {
     _initHandlers();
-
     // Updating count of filled fields vs all fields
     updateFilledFields(true);
-  };
+  },
 
-  const _initHandlers = function () {
+  _initHandlers = function () {
     // Add all form elem evt handlers here
     $(elem.form).on("change keyup paste cut", "." + elem.formItem, function(ev) {
       const key = ev.which || ev.key,
       self = this;
       let updateTimer;
+      // Update field if enter key is pressed isndie the input box
       if(key && key === 13) {
         // blur the input box and update values here
         $(this).trigger("blur");
         updateFilledFields(true);
       } else {
+        // Since value updateion is done on every keyup, 
+        // performance hit is saved via setTimeout by not checking it everytime and only after half a second
         clearTimeout(updateTimer);
         updateTimer = setTimeout(() => {
           // update main object here
@@ -1419,9 +1428,25 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     }).on("change keyup paste cut", "textarea", function () {
       u.adjustHeight(this);
     });
-  };
 
-  const updateToForm = function (field, txt) {
+    // Event handler for click on NEXT button in header
+    $(elem.next).on("click", function(ev) {
+      ev.preventDefault();
+      validateForm();
+      // If form has some problem, the above method would stop it already otherwise do the following
+      // Save data via some ajax call and move to next page/layout
+      alert("Success, all of the items are properly filled");
+    });
+  },
+
+  /**
+   * This function updates value to sidebar when user selects value from context menu
+   * These changes will reflect in sidebar instantly and would update the progress bar 
+   * @param {String} field - This would be the name of the filed whose value is getting updated
+   * @param {String} txt - This is the text that is being updated in the field
+   */
+  updateToForm = function (field, txt) {
+    // Field reference from main object
     const item = af[field],
       _el = $("#" + item.dom.id);
     // Updating the corresponding form DOM element
@@ -1431,16 +1456,24 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       // Updating the original object
       item.value = txt;
       _el.val(txt);
+      // Since textarea do not support auto height as per content, doing this via script in timeout
       setTimeout(function() {
         if(_el.is("textarea")) {
           u.adjustHeight(_el[0]);
         }
       }, 10);
     }
+    // This function updates the progress bar
     updateFilledFields(true);
-  };
+  },
 
-  const _getValidatedDate = function(txt) {
+  /**
+   * The function takes a possible date string which is probably an invalid format
+   * Converts invalid format to a valid one i.e. yyyy-mm-dd and returns it
+   * @param {String} txt
+   * @returns {String} Date
+   */
+  _getValidatedDate = function(txt) {
     // Making a Date object out of Date string
     const _temp = new Date(txt);
     if (_temp != 'Invalid Date') {
@@ -1448,6 +1481,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         day = ("0" + _temp.getDate()).slice(-2);
       return [_temp.getFullYear(), mnth, day].join("-");
     } else {
+      // Date can either be separated via a . (Dot), - (dash) or a forward slash (/)
       const separator = txt.indexOf(".") > -1 ? "." : (txt.indexOf("/") > -1 ? "/" : "-"),
         dateParts = txt.split(separator);
 
@@ -1465,7 +1499,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
             dateError();
           }
         });
-        return yyyy + "-" + mm + "-" + dd;
+        return [yyyy, mm, dd].join("-");
       } else {
         dateError();
       }
@@ -1476,15 +1510,39 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       console.warn("Invalid date", txt);
       return;
     }
-  };
+  },
 
-  const _updateFromSidebar = function(el) {
+  /**
+   * Function updates the actual object with all field values as well as progress bar when some changes are made
+   * directly into the sidebar
+   *
+   * @param {jQueryElement} el
+   */
+  _updateFromSidebar = function(el) {
     const field = el.attr("id").replace(pFix, "");
     af[field].value = el.val();
     updateFilledFields(true);
-  };
+  },
 
-  const validateForm = function() {};
+  /**
+   * The function validates if all fields are filled properly and there is no required field which is left empty
+   * The function also validates specefic types of fields if required
+   */
+  validateForm = function() {
+    _allKeys.forEach((key) => {
+      const item = af[key];
+      if(item.required && !item.value) {
+        // Check if any of the required items are left blank
+        showError(item.label);
+      }
+    });
+
+    function showError(field, msg) {
+      msg = msg ? " " + msg : " cannot be blank";
+      alert(field + msg);
+      return;
+    }
+  };
 
   // Making functions Public
   f.allFieldsCount = tf;

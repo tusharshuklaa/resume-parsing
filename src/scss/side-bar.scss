@@ -68,6 +68,19 @@ section.side-bar-content {
         max-width: 50%;
         float: left;
       }
+
+      &[type="date"]:before {
+        color: white;
+        content: attr(placeholder) !important;
+        margin-right: 0.5em;
+        position: absolute;
+        background-color: $purple;
+        cursor: text;
+      }
+
+      &[type="date"]:focus:before {
+        content: '' !important;
+      }
     }
 
     > textarea {
