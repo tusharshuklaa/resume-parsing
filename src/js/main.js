@@ -21,6 +21,7 @@ const ResumeParsing = {
   SmartSuggestion: {},
   ContextMenu: {},
   Form: {},
+  FormUtilities: {},
   get AllCategoryNames() {
     return this.Utility.Enum([
       "String",
@@ -1267,19 +1268,13 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
 //#endregion
 
-//#region ResumeParsing.Form 
+//#region ResumeParsing.FormUtilities
 
-(function({ 
-  Form: f,
+(function ({
   AllFields: af,
-  DOM: elem,
-  Utility: u,
-  IdPrefix: pFix,
-  FieldCategories: cat
+  FormUtilities: fu
 }) {
 
-  //#region AllFields filter functions
-  
   const _allKeys = Object.keys(af);
 
   /**
@@ -1354,65 +1349,47 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     return _allKeys.filter(k => !af[k].value);
   };
 
-  const tf = _allKeys.length;
-  
-  //#endregion
+  fu.getReq = getTotalRequiredFields;
+  fu.getOptional = getTotalOptionalFields;
+  fu.getReqDone = getFilledRequiredFields;
+  fu.getReqLeft = getRemainingRequiredFields;
+  fu.getOptionalDone = getFilledOptionalFields;
+  fu.getOptionalLeft = getRemainingOptionalFields;
+  fu.getAllDone = getAllFilled;
+  fu.getAllLeft = getAllEmpty;
+
+})(ResumeParsing);
+
+//#endregion
+
+//#region ResumeParsing.Form 
+
+(function({ 
+  Form: f,
+  AllFields: af,
+  DOM: elem,
+  Utility: u,
+  FormUtilities: fu,
+  IdPrefix: pFix
+}) {
+
+
+  const _allKeys = Object.keys(af),
+  tf = _allKeys.length;
 
   /**
    * Updates ALL FIELDS VS FILLED FIELDS
    *
    */
   const updateFilledFields = function (onlyReq) {
-    const len = onlyReq ? getTotalRequiredFields().length : _allKeys.length,
+    const len = onlyReq ? fu.getReq().length : _allKeys.length,
     pBar = $(elem.progressBar),
-    percnt = parseInt((getAllFilled().length / len) * 100) + "%",
+      percnt = parseInt((fu.getAllDone().length / len) * 100) + "%",
     iconW = pBar.prev().outerWidth(),
     actualW = `calc(${percnt} - ${iconW}px)`;
     pBar.width(actualW);
     $(elem.progress).html(percnt + " Complete");
   }
-
-  // const _getFilteredObj = function(keys) {
-  //   keys.reduce((acc, key) => {
-  //     acc[key] = af[key];
-  //     return acc;
-  //   }, {});
-  // };
-
-  // const createForm = function() {
-  //   $(elem.reqFields).html(_createFormGroup(getTotalRequiredFields()));
-  //   $(elem.optFields).html(_createFormGroup(getTotalOptionalFields()));
-  // };
-
-  // const _createFormGroup = function(keys) {
-  //   const fieldClass = u.getIdentifierName(elem.fields);
-  //   let form = "";
-  //   keys.forEach((k) => {
-  //     const o = af[k],
-  //           isRequired = o.required ? "required" : "";
-  //     let inputField = "",
-  //         isHalfWidth = "half-width";
-  //     if (o.dom.type === "select") {
-  //       let options = "";
-  //       o.dom.options.forEach(z => {
-  //         options = options + `<option value="${z}">${z}</option>`;
-  //       });
-  //       inputField = `<select class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired}>${options}</select>`;
-  //     } else if (o.dom.type === "desc") {
-  //       isHalfWidth = "";
-  //       inputField = `<textarea class="form-control ${fieldClass}" rows="3" id="${o.dom.id}" value="${o.value}" ${isRequired}></textarea>`;
-  //     } else {
-  //       inputField = `<input type="${o.dom.type}" class="form-control ${fieldClass}" id="${o.dom.id}" value="${o.value}" ${isRequired} />`;
-  //     }
-  //     form = form + `
-  //       <div class="form-group ${isHalfWidth}">
-  //         <label for="${o.dom.id}">${o.label}: </label>
-  //         ${inputField}
-  //       </div>
-  //     `;
-  //   });
-  //   return form;
-  // };
 
   const init = function() {
     _initHandlers();
@@ -1423,128 +1400,35 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
   const _initHandlers = function () {
     // Add all form elem evt handlers here
-    $(elem.form).on("change", "." + elem.formItem, function(ev) {
-      const key = ev.which || ev.key;
-      if(key !== 13) {
-        console.log("keyup event from side bar: ", ev);
-        // update main object here
+    $(elem.form).on("change keyup paste cut", "." + elem.formItem, function(ev) {
+      const key = ev.which || ev.key,
+      self = this;
+      let updateTimer;
+      if(key && key === 13) {
+        // blur the input box and update values here
+        $(this).trigger("blur");
+        updateFilledFields(true);
+      } else {
+        clearTimeout(updateTimer);
+        updateTimer = setTimeout(() => {
+          // update main object here
+          _updateFromSidebar($(self));
+        }, 500)
       }
     }).on("change keyup paste cut", "textarea", function () {
       u.adjustHeight(this);
     });
   };
 
-  const create = function () {
-    // Append dynamically created form in side bar
-    $(elem.form).html(_getHtml());
-
-    // Attach event handlers on dynamically added elements in side bar
-    _initHandlers();
-  };
-
-  const _getHtml = function () {
-    const _personal = _makeHtml(cat.pe),
-      _proff = _makeHtml(cat.pr),
-      _edu = _makeHtml(cat.edu);
-
-    return _personal + _proff + _edu;
-  };
-
-  const _makeHtml = function (type) {
-    let className = type + "-info",
-      keys;
-    const obj = _filterData(type);
-    if (obj && (keys = _orderObjKeys(obj), keys.length > 0)) {
-      let _content = "";
-      keys.forEach((k) => {
-        const o = obj[k],
-        _dom = o.dom,
-        placeholder = _dom.placeholder && _dom.placeholder.length > 0 ? _dom.placeholder : o.label;
-        if (_dom.type !== "desc") {
-          _content = _content +
-            `<input id="${ _dom.id }" class="${ elem.formItem } ${ _dom.classList.join(" ")}" type="${ _dom.type }" placeholder="${ placeholder }">`;
-        } else {
-          _content = _content +
-          `<section class="descriptionList">
-            <span>${o.label}</span>
-            <textarea id="${ _dom.id }" type="text" placeholder="${ placeholder }"></textarea>
-          </section>`;
-        }
-      });
-      return `<section class="info-section ${ className }">${ _content }</section>`;
-    } else {
-      return "";
-    }
-  };
-
-  const _filterData = function (type) {
-    return _allKeys.reduce((acc, cv) => {
-      const o = af[cv];
-      if (o.category === type && o.required) {
-        acc[cv] = o;
-      }
-      return acc;
-    }, {});
-  };
-
-  const _orderObjKeys = function(obj) {
-    if(!obj) {
-      throw "No object provided for ordering";
-    }
-
-    return Object.keys(obj).sort((a, b) => {
-      const objA = af[a],
-      objB = af[b],
-      orderA = objA.dom.order.charAt(objA.dom.order.length - 1),
-      orderB = objB.dom.order.charAt(objA.dom.order.length - 1);
-
-      return orderA > orderB;
-    });
-  };
-
-  // const _initHandlers = function() {
-  //   $(elem.saveForm).on("click", _handleFormSave);
-  //   $(elem.closeForm).on("click", _destroyHandlers);
-  // };
-
-  // const _destroyHandlers = function() {
-  //   $(elem.saveForm).off("click", _handleFormSave);
-  //   $(elem.closeForm).off("click", _destroyHandlers);
-  // };
-
-  // const _handleFormSave = function() {
-  //   _updateValuesFromForm();
-  //   updateFilledFields(true);
-  // };
-
-  // const updateFormValues = function() {
-  //   _allKeys.forEach((k) => {
-  //     const o = af[k];
-  //     $("#" + o.dom.id).val(o.value);
-  //   });
-  // };
-
-  // const _updateValuesFromForm = function() {
-  //   $(elem.fields).each(function() {
-  //     const elem = $(this),
-  //     id = elem.attr("id").replace(pFix, "");
-  //     af[id].value = elem.val();
-  //   });
-  // };
-
   const updateToForm = function (field, txt) {
-    const item = af[field];
-
-    if (item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1) {
-      txt = _getValidatedDate(txt);
-    }
-
-    // Updating the original object
-    item.value = txt;
-    
+    const item = af[field],
+      _el = $("#" + item.dom.id);
     // Updating the corresponding form DOM element
-    const _el = $("#" + item.dom.id);
-    if(_el && _el.length > 0) {
+    if (_el && _el.length > 0) {
+      // If text is date then convert it to a proper date with supported yyyy-mm-dd format
+      txt = item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1 ? _getValidatedDate(txt) : txt;
+      // Updating the original object
+      item.value = txt;
       _el.val(txt);
       setTimeout(function() {
         if(_el.is("textarea")) {
@@ -1552,7 +1436,6 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         }
       }, 10);
     }
-
     updateFilledFields(true);
   };
 
@@ -1594,22 +1477,17 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     }
   };
 
-  // const updateFromSidebar = function() {};
+  const _updateFromSidebar = function(el) {
+    const field = el.attr("id").replace(pFix, "");
+    af[field].value = el.val();
+    updateFilledFields(true);
+  };
 
   const validateForm = function() {};
 
   // Making functions Public
   f.allFieldsCount = tf;
-  f.getReq = getTotalRequiredFields;
-  f.getOptional = getTotalOptionalFields;
-  f.getReqDone = getFilledRequiredFields;
-  f.getReqLeft = getRemainingRequiredFields;
-  f.getOptionalDone = getFilledOptionalFields;
-  f.getOptionalLeft = getRemainingOptionalFields;
-  f.getAllDone = getAllFilled;
-  f.getAllLeft = getAllEmpty;
   f.updateAllCount = updateFilledFields;
-  f.create = create;
   f.init = init;
   f.isValid = validateForm;
   f.updateToForm = updateToForm;
@@ -1626,14 +1504,3 @@ $(() => {
 });
 
 //#endregion
-
-// window.onload = function() {
-//   setTimeout(function() {
-//     console.clear();
-//   }, 500);
-// };
-
-/** 
- * TODOs:
- * Next btn validates if all required fields have been filled
-*/
