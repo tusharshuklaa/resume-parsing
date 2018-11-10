@@ -205,12 +205,7 @@ ResumeParsing.AllFields = {
    *      label: "display label of field",
    *      required: "boolean to tell if this is a required field",
    *      category: "category of the field",
-   *      dom: {
-   *        classList: "Array of strings that holds class values",
-   *        placeholder: "Placeholder for field",
-   *        type: "type of DOM element - text/email/number/select/desc",
-   *        order: "order of appearance in each category from top to bottom"
-   *      },
+   *      id: "dom id of element",
    *      canSuggest: "boolean to mute suggestions"
    * }
    */
@@ -220,15 +215,6 @@ ResumeParsing.AllFields = {
     "label": "First Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [
-        "input-headline",
-        "half-width"
-      ],
-      "placeholder" : "First Name", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "1"
-    },
     "canSuggest": true
   },
   "lastName": {
@@ -237,15 +223,6 @@ ResumeParsing.AllFields = {
     "label": "Last Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [
-        "input-headline",
-        "half-width"
-      ],
-      "placeholder" : "Last Name", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "2"
-    },
     "canSuggest": true
   },
   "phone": {
@@ -254,12 +231,6 @@ ResumeParsing.AllFields = {
     "label": "Mobile No",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
-      "classList": [],
-      "placeholder": "Mobile Number",
-      "type": "tel",
-      "order": ResumeParsing.FieldCategories.pe + "3"
-    },
     "canSuggest": true
   },
   "email": {
@@ -268,12 +239,6 @@ ResumeParsing.AllFields = {
     "label": "Email",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "Email", 
-      "type": "email",
-      "order": ResumeParsing.FieldCategories.pe + "4"
-    },
     "canSuggest": true
   },
   "headline": {
@@ -282,74 +247,7 @@ ResumeParsing.AllFields = {
     "label": "Profile Headline",
     "required": true,
     "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "Profile headline", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "5"
-    },
     "canSuggest": true
-  },
-  "gender": {
-    "like": [ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Gender",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "select",
-      "options": [
-        "male",
-        "female",
-        "other"
-      ],
-      "order": ResumeParsing.FieldCategories.pe + "6"
-    },
-    "canSuggest": false
-  },
-  "city": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "City",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
-      "classList": [],
-      "placeholder": "placeholder",
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "7"
-    },
-    "canSuggest": false
-  },
-  "state": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "State",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": {
-      "classList": [],
-      "placeholder": "placeholder",
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "8"
-    },
-    "canSuggest": false
-  },
-  "country": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Country",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pe,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pe + "9"
-    },
-    "canSuggest": false
   },
   "lastCompanyName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -357,14 +255,6 @@ ResumeParsing.AllFields = {
     "label": "Last Company Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [
-        "input-headline"
-      ],
-      "placeholder" : "Last Company Name", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pr + "1"
-    },
     "canSuggest": true
   },
   "lastCompanyDesignation": {
@@ -373,12 +263,6 @@ ResumeParsing.AllFields = {
     "label": "Last Company Designation",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pr + "2"
-    },
     "canSuggest": true
   },
   "companyDuration": {
@@ -387,12 +271,6 @@ ResumeParsing.AllFields = {
     "label": "Company Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "", 
-      "type": "date",
-      "order": ResumeParsing.FieldCategories.pr + "3"
-    },
     "canSuggest": true
   },
   "companyDetails": {
@@ -401,41 +279,7 @@ ResumeParsing.AllFields = {
     "label": "Company Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "desc",
-      "order": ResumeParsing.FieldCategories.pr + "4"
-    },
     "canSuggest": true
-  },
-  "industry": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Industry",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pr + "5"
-    },
-    "canSuggest": false
-  },
-  "location": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Location",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.pr,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.pr + "6"
-    },
-    "canSuggest": false
   },
   "collegeName": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
@@ -443,14 +287,6 @@ ResumeParsing.AllFields = {
     "label": "College Name",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [
-        "input-headline"
-      ],
-      "placeholder" : "Institute/University Name", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.edu + "1"
-    },
     "canSuggest": true
   },
   "course": {
@@ -459,15 +295,6 @@ ResumeParsing.AllFields = {
     "label": "Degree",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [
-        "input-headline",
-        "heading-mini"
-      ],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.edu + "2"
-    },
     "canSuggest": true
   },
   "collegeDuration": {
@@ -476,27 +303,7 @@ ResumeParsing.AllFields = {
     "label": "College Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "date",
-      "order": ResumeParsing.FieldCategories.edu + "3"
-    },
     "canSuggest": true
-  },
-  "grade": {
-    "like": [ResumeParsing.AllCategoryNames.ContainsNumber, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Grade",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.edu + "4"
-    },
-    "canSuggest": false
   },
   "collegeDetails": {
     "like": [ResumeParsing.AllCategoryNames.Description, ResumeParsing.AllCategoryNames.String],
@@ -504,33 +311,13 @@ ResumeParsing.AllFields = {
     "label": "College Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "desc",
-      "order": ResumeParsing.FieldCategories.edu + "5"
-    },
     "canSuggest": true
-  },
-  "fieldOfStudy": {
-    "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
-    "value": "",
-    "label": "Field Of Study",
-    "required": false,
-    "category": ResumeParsing.FieldCategories.edu,
-    "dom": { 
-      "classList": [],
-      "placeholder" : "placeholder", 
-      "type": "text",
-      "order": ResumeParsing.FieldCategories.edu + "6"
-    },
-    "canSuggest": false
   }
 };
 
 /** Dynamically assigning ID for DOM traversal to each field  */
 Object.keys(ResumeParsing.AllFields).forEach((f) => {
-  ResumeParsing.AllFields[f].dom.id = ResumeParsing.IdPrefix + f;
+  ResumeParsing.AllFields[f].id = ResumeParsing.IdPrefix + f;
 });
 
 //#endregion
@@ -809,7 +596,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   _getDomString = function (field) {
     const listItem = u.getIdentifierName(elem.cmListItems);
     return `
-      <li class="${listItem} ${ field.value ? 'visited' : '' }" data-resume-field="${field.dom.id}">
+      <li class="${listItem} ${ field.value ? 'visited' : '' }" data-resume-field="${field.id}">
         <span>${field.label}<span>
       </li>
     `;
@@ -1448,7 +1235,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   updateToForm = function (field, txt) {
     // Field reference from main object
     const item = af[field],
-      _el = $("#" + item.dom.id);
+      _el = $("#" + item.id);
     // Updating the corresponding form DOM element
     if (_el && _el.length > 0) {
       // If text is date then convert it to a proper date with supported yyyy-mm-dd format
