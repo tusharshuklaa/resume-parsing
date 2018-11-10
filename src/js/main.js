@@ -1295,7 +1295,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     function dateError() {
       // Show error of invalid date format
       console.warn("Invalid date", txt);
-      return;
+      throw "Date format is invalid hence cannot update value";
     }
   },
 
@@ -1316,18 +1316,25 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * The function also validates specefic types of fields if required
    */
   validateForm = function() {
+    let brk = false;
     _allKeys.forEach((key) => {
       const item = af[key];
-      if(item.required && !item.value) {
-        // Check if any of the required items are left blank
-        showError(item.label);
+      if (!brk) {
+        if (item.required && !item.value) {
+          // Check if any of the required items are left blank
+          showError(item.label);
+          brk = true;
+        }
       }
     });
+
+    if (brk) {
+      throw "Something went wrong with input fields, please re-check before proceeding";
+    }
 
     function showError(field, msg) {
       msg = msg ? " " + msg : " cannot be blank";
       alert(field + msg);
-      return;
     }
   };
 
