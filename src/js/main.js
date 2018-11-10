@@ -165,6 +165,10 @@ const ResumeParsing = {
       y: pageY
     };
   }
+
+  const adjustHeight = function(_t){
+    $(_t).height(0).height(_t.scrollHeight);
+  }
   
   u.getId = (name) => makeDomElem(name, true);
   u.getClass = (name) => makeDomElem(name, false);
@@ -172,6 +176,7 @@ const ResumeParsing = {
   u.isNumber = isNumber;
   u.getIdentifierName = removeDomIdentifier;
   u.getMousePosition = getMousePosition;
+  u.adjustHeight = adjustHeight;
 
 })(ResumeParsing);
 
@@ -244,7 +249,7 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pe,
     "dom": {
       "classList": [],
-      "placeholder": "placeholder",
+      "placeholder": "Mobile Number",
       "type": "tel",
       "order": ResumeParsing.FieldCategories.pe + "3"
     },
@@ -258,7 +263,7 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
       "classList": [],
-      "placeholder" : "", 
+      "placeholder" : "Email", 
       "type": "email",
       "order": ResumeParsing.FieldCategories.pe + "4"
     },
@@ -272,7 +277,7 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pe,
     "dom": { 
       "classList": [],
-      "placeholder" : "placeholder", 
+      "placeholder" : "Profile headline", 
       "type": "text",
       "order": ResumeParsing.FieldCategories.pe + "5"
     },
@@ -349,7 +354,7 @@ ResumeParsing.AllFields = {
       "classList": [
         "input-headline"
       ],
-      "placeholder" : "placeholder", 
+      "placeholder" : "Last Company Name", 
       "type": "text",
       "order": ResumeParsing.FieldCategories.pr + "1"
     },
@@ -363,7 +368,7 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
       "classList": [],
-      "placeholder" : "placeholder", 
+      "placeholder" : "", 
       "type": "text",
       "order": ResumeParsing.FieldCategories.pr + "2"
     },
@@ -372,21 +377,21 @@ ResumeParsing.AllFields = {
   "companyDuration": {
     "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
     "value": "",
-    "label": "Duration",
+    "label": "Company Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
       "classList": [],
-      "placeholder" : "placeholder", 
+      "placeholder" : "", 
       "type": "date",
       "order": ResumeParsing.FieldCategories.pr + "3"
     },
     "canSuggest": true
   },
-  "details": {
+  "companyDetails": {
     "like": [ResumeParsing.AllCategoryNames.Description, ResumeParsing.AllCategoryNames.List, ResumeParsing.AllCategoryNames.String],
     "value": "",
-    "label": "Details",
+    "label": "Company Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "dom": { 
@@ -441,7 +446,7 @@ ResumeParsing.AllFields = {
     },
     "canSuggest": true
   },
-  "degree": {
+  "course": {
     "like": [ResumeParsing.AllCategoryNames.Name, ResumeParsing.AllCategoryNames.String],
     "value": "",
     "label": "Degree",
@@ -461,7 +466,7 @@ ResumeParsing.AllFields = {
   "collegeDuration": {
     "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
     "value": "",
-    "label": "Duration",
+    "label": "College Duration",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
@@ -476,7 +481,7 @@ ResumeParsing.AllFields = {
     "like": [ResumeParsing.AllCategoryNames.ContainsNumber, ResumeParsing.AllCategoryNames.String],
     "value": "",
     "label": "Grade",
-    "required": true,
+    "required": false,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
       "classList": [],
@@ -484,12 +489,12 @@ ResumeParsing.AllFields = {
       "type": "text",
       "order": ResumeParsing.FieldCategories.edu + "4"
     },
-    "canSuggest": true
+    "canSuggest": false
   },
   "collegeDetails": {
     "like": [ResumeParsing.AllCategoryNames.Description, ResumeParsing.AllCategoryNames.String],
     "value": "",
-    "label": "Details",
+    "label": "College Details",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "dom": { 
@@ -546,12 +551,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    */
   const init = function() {
     _initHandlers();
-    // Updating count of filled fields vs all fields
-    f.updateAllCount(true);
+    f.init();
     // Updating current resume page number vs all resume pages
     _updatePageCount(_getPageCount());
-    // Creating Preview Form dynamically
-    f.create();
   };
 
   /**
@@ -1412,14 +1414,23 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   //   return form;
   // };
 
+  const init = function() {
+    _initHandlers();
+
+    // Updating count of filled fields vs all fields
+    updateFilledFields(true);
+  };
+
   const _initHandlers = function () {
     // Add all form elem evt handlers here
-    $(elem.form).on("keyup", "." + elem.formItem, function(ev) {
+    $(elem.form).on("change", "." + elem.formItem, function(ev) {
       const key = ev.which || ev.key;
       if(key !== 13) {
         console.log("keyup event from side bar: ", ev);
-        // update mani object here
+        // update main object here
       }
+    }).on("change keyup paste cut", "textarea", function () {
+      u.adjustHeight(this);
     });
   };
 
@@ -1523,25 +1534,67 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
   const updateToForm = function (field, txt) {
     const item = af[field];
-    // Updating the original object
-    item.value = txt;
 
     if (item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1) {
-      // Making a Date object out of Date string
-      const _temp = new Date(txt);
-      if (_temp != 'Invalid Date') {
-        txt = _temp;
-      } else {
-        // Show error of invalid date format
-        console.warn("Invalid date", txt);
-      }
+      txt = _getValidatedDate(txt);
     }
+
+    // Updating the original object
+    item.value = txt;
+    
     // Updating the corresponding form DOM element
-    $("#" + item.dom.id).val(txt);
-    f.updateAllCount(true);
+    const _el = $("#" + item.dom.id);
+    if(_el && _el.length > 0) {
+      _el.val(txt);
+      setTimeout(function() {
+        if(_el.is("textarea")) {
+          u.adjustHeight(_el[0]);
+        }
+      }, 10);
+    }
+
+    updateFilledFields(true);
   };
 
-  const updateFromSidebar = function() {};
+  const _getValidatedDate = function(txt) {
+    // Making a Date object out of Date string
+    const _temp = new Date(txt);
+    if (_temp != 'Invalid Date') {
+      const mnth = ("0" + (_temp.getMonth() + 1)).slice(-2),
+        day = ("0" + _temp.getDate()).slice(-2);
+      return [_temp.getFullYear(), mnth, day].join("-");
+    } else {
+      const separator = txt.indexOf(".") > -1 ? "." : (txt.indexOf("/") > -1 ? "/" : "-"),
+        dateParts = txt.split(separator);
+
+      if (dateParts.length > 1) {
+        let dd, mm, yyyy;
+        dateParts.forEach((p) => {
+          const item = parseInt(p, 10);
+          if (item <= 12 && !mm) {
+            mm = item;
+          } else if (item <= 31 && !dd) {
+            dd = item;
+          } else if (item >= 1970 && !yyyy) {
+            yyyy = item;
+          } else {
+            dateError();
+          }
+        });
+        return yyyy + "-" + mm + "-" + dd;
+      } else {
+        dateError();
+      }
+    }
+
+    function dateError() {
+      // Show error of invalid date format
+      console.warn("Invalid date", txt);
+      return;
+    }
+  };
+
+  // const updateFromSidebar = function() {};
 
   const validateForm = function() {};
 
@@ -1557,7 +1610,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   f.getAllLeft = getAllEmpty;
   f.updateAllCount = updateFilledFields;
   f.create = create;
-  // f.init = init;
+  f.init = init;
   f.isValid = validateForm;
   f.updateToForm = updateToForm;
   

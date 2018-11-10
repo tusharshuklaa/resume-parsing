@@ -31,12 +31,16 @@
 %transyInput {
   background-color: transparent;
   border: 0;
-  color: white;
+  color: $white;
 }
 
 %input {
   @extend %transyInput;
-  padding: 0px 5px;
+  padding: 2.5px 5px;
+  width: 100%;
+  &:focus {
+    outline-color: $white;
+  }
 
   @include placeholder() {
     color: $white;

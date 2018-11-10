@@ -11,20 +11,37 @@
   z-index: 10;
   top: 0px; }
 
-section.side-bar-content .info-section > input, section.side-bar-content .info-section .descriptionList > input {
+section.side-bar-content .info-section > input,
+section.side-bar-content .info-section > textarea, section.side-bar-content .info-section .descriptionList > input,
+section.side-bar-content .info-section .descriptionList > textarea {
   background-color: transparent;
   border: 0;
-  color: white; }
+  color: #ffffff; }
 
-section.side-bar-content .info-section > input, section.side-bar-content .info-section .descriptionList > input {
-  padding: 0px 5px; }
-  section.side-bar-content .info-section > input::-webkit-input-placeholder, section.side-bar-content .info-section .descriptionList > input::-webkit-input-placeholder {
+section.side-bar-content .info-section > input,
+section.side-bar-content .info-section > textarea, section.side-bar-content .info-section .descriptionList > input,
+section.side-bar-content .info-section .descriptionList > textarea {
+  padding: 2.5px 5px;
+  width: 100%; }
+  section.side-bar-content .info-section > input:focus,
+  section.side-bar-content .info-section > textarea:focus, section.side-bar-content .info-section .descriptionList > input:focus,
+  section.side-bar-content .info-section .descriptionList > textarea:focus {
+    outline-color: #ffffff; }
+  section.side-bar-content .info-section > input::-webkit-input-placeholder,
+  section.side-bar-content .info-section > textarea::-webkit-input-placeholder, section.side-bar-content .info-section .descriptionList > input::-webkit-input-placeholder,
+  section.side-bar-content .info-section .descriptionList > textarea::-webkit-input-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input:-moz-placeholder, section.side-bar-content .info-section .descriptionList > input:-moz-placeholder {
+  section.side-bar-content .info-section > input:-moz-placeholder,
+  section.side-bar-content .info-section > textarea:-moz-placeholder, section.side-bar-content .info-section .descriptionList > input:-moz-placeholder,
+  section.side-bar-content .info-section .descriptionList > textarea:-moz-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input::-moz-placeholder, section.side-bar-content .info-section .descriptionList > input::-moz-placeholder {
+  section.side-bar-content .info-section > input::-moz-placeholder,
+  section.side-bar-content .info-section > textarea::-moz-placeholder, section.side-bar-content .info-section .descriptionList > input::-moz-placeholder,
+  section.side-bar-content .info-section .descriptionList > textarea::-moz-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input:-ms-input-placeholder, section.side-bar-content .info-section .descriptionList > input:-ms-input-placeholder {
+  section.side-bar-content .info-section > input:-ms-input-placeholder,
+  section.side-bar-content .info-section > textarea:-ms-input-placeholder, section.side-bar-content .info-section .descriptionList > input:-ms-input-placeholder,
+  section.side-bar-content .info-section .descriptionList > textarea:-ms-input-placeholder {
     color: #ffffff; }
 
 .resume-container {
@@ -223,17 +240,22 @@ section.side-bar-content {
   section.side-bar-content .info-section {
     padding: 20px 0;
     border-bottom: 1px solid #ffffff; }
-    section.side-bar-content .info-section > input.half-width {
-      max-width: 50%; }
     section.side-bar-content .info-section > input.input-headline {
       font-size: 1.1em;
       text-shadow: 0px 0px 0px; }
+    section.side-bar-content .info-section > input.half-width {
+      max-width: 50%;
+      float: left; }
+    section.side-bar-content .info-section > textarea {
+      resize: none; }
     section.side-bar-content .info-section .descriptionList {
       padding-top: 20px; }
       section.side-bar-content .info-section .descriptionList > span {
         display: block;
         padding: 0px 5px;
         text-shadow: 0px 0px 0px; }
+      section.side-bar-content .info-section .descriptionList > textarea {
+        resize: none; }
 
 .rp-context-menu {
   top: 0;
