@@ -745,7 +745,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   AllFields: af,
   Utility: u,
   IdPrefix: prefix,
-  Form: f
+  Form: f,
+  FormUtilities: fu
 }) {
 
   let selectedText = "";
@@ -831,8 +832,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       requiredLeft: "",
       optionalDone: "",
       optionalLeft: "",
-      reqDone: f.getReqDone().length,
-      reqTotal: f.getReq().length
+      reqDone: fu.getReqDone().length,
+      reqTotal: fu.getReq().length
     };
 
     for (let f in af) {
