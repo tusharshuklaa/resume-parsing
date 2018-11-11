@@ -1374,7 +1374,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       }
     }
 
-    if (item.like.indexOf(ResumeParsing.AllCategoryNames.MobileNumber)) {
+    if (item.like.indexOf(ResumeParsing.AllCategoryNames.MobileNumber) > -1) {
       const stringifiedNum = val.toString();
       if (stringifiedNum.length < 5 || stringifiedNum.length > 13) {
         // Minimum length of a phone number is 5 for Saint Helena and maximum is 13 for Austria
