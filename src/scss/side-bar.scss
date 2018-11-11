@@ -72,7 +72,7 @@ section.side-bar-content {
       &[type="date"]:before {
         color: white;
         content: attr(placeholder) !important;
-        margin-right: 0.5em;
+        min-width: 100px;
         position: absolute;
         background-color: $purple;
         cursor: text;

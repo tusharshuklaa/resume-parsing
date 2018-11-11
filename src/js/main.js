@@ -265,10 +265,18 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.pr,
     "canSuggest": true
   },
-  "companyDuration": {
+  "companySince": {
     "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
     "value": "",
-    "label": "Company Duration",
+    "label": "Working Since?",
+    "required": true,
+    "category": ResumeParsing.FieldCategories.pr,
+    "canSuggest": true
+  },
+  "companyTill": {
+    "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
+    "value": "",
+    "label": "Worked Till?",
     "required": true,
     "category": ResumeParsing.FieldCategories.pr,
     "canSuggest": true
@@ -297,10 +305,18 @@ ResumeParsing.AllFields = {
     "category": ResumeParsing.FieldCategories.edu,
     "canSuggest": true
   },
-  "collegeDuration": {
+  "collegeSince": {
     "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
     "value": "",
-    "label": "College Duration",
+    "label": "Studied Since?",
+    "required": true,
+    "category": ResumeParsing.FieldCategories.edu,
+    "canSuggest": true
+  },
+  "collegeTill": {
+    "like": [ResumeParsing.AllCategoryNames.Date, ResumeParsing.AllCategoryNames.Number],
+    "value": "",
+    "label": "Studied Till?",
     "required": true,
     "category": ResumeParsing.FieldCategories.edu,
     "canSuggest": true
@@ -1239,7 +1255,11 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     // Updating the corresponding form DOM element
     if (_el && _el.length > 0) {
       // If text is date then convert it to a proper date with supported yyyy-mm-dd format
-      txt = item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1 ? _getValidatedDate(txt) : txt;
+      txt = item.like.indexOf(ResumeParsing.AllCategoryNames.Date) > -1 ? _getValidDate(txt) : txt;
+
+      // If text is mobile number then all strings should be stripped off from it and only numbers shall remain
+      txt = item.like.indexOf(ResumeParsing.AllCategoryNames.MobileNumber) > -1 ? _getValidNumber(txt) : txt;
+
       // Updating the original object
       item.value = txt;
       _el.val(txt);
@@ -1260,7 +1280,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
    * @param {String} txt
    * @returns {String} Date
    */
-  _getValidatedDate = function(txt) {
+  _getValidDate = function(txt) {
     // Making a Date object out of Date string
     const _temp = new Date(txt);
     if (_temp != 'Invalid Date') {
@@ -1297,6 +1317,10 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       console.warn("Invalid date", txt);
       throw "Date format is invalid hence cannot update value";
     }
+  },
+
+  _getValidNumber = function(txt) {
+    return parseInt(txt.replace(/[^0-9\.]+/g, ""), 10);
   },
 
   /**
