@@ -1260,8 +1260,16 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       // If text is mobile number then all strings should be stripped off from it and only numbers shall remain
       txt = item.like.indexOf(ResumeParsing.AllCategoryNames.MobileNumber) > -1 ? _getValidNumber(txt) : txt;
 
+      // Creating dummy object to see if everything is OK else throw an error
+      const dummyItem = JSON.parse(JSON.stringify(item));
+      dummyItem.value = txt;
+      
+      // Error would be raised if there is any validation issue
+      validate(dummyItem, true);
+
       // Updating the original object
       item.value = txt;
+
       _el.val(txt);
       // Since textarea do not support auto height as per content, doing this via script in timeout
       setTimeout(function() {
@@ -1315,7 +1323,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     function dateError() {
       // Show error of invalid date format
       console.warn("Invalid date", txt);
-      throw "Date format is invalid hence cannot update value";
+      alert("Invalid date", txt);
+      throw "Date format '" + txt + "' is invalid hence cannot update value";
     }
   },
 
@@ -1338,27 +1347,45 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   /**
    * The function validates if all fields are filled properly and there is no required field which is left empty
    * The function also validates specefic types of fields if required
+   * Function accepts a boolean parameter that tells whether or not to skip check for epmty values
+   * 
+   * @param {Boolean} skipEmptyCheck
    */
   validateForm = function() {
-    let brk = false;
     _allKeys.forEach((key) => {
-      const item = af[key];
-      if (!brk) {
-        if (item.required && !item.value) {
-          // Check if any of the required items are left blank
-          showError(item.label);
-          brk = true;
-        }
-      }
+      validate(af[key]);
     });
+  },
 
-    if (brk) {
-      throw "Something went wrong with input fields, please re-check before proceeding";
+  validate = function (item, skipEmptyCheck) {
+    skipEmptyCheck = !!skipEmptyCheck;
+    const val = item.value;
+    if (!skipEmptyCheck) {
+      if (item.required && !val) {
+        // Check if any of the required items are left blank
+        showError(item.label);
+      }
+    }
+
+    if (item.like.indexOf(ResumeParsing.AllCategoryNames.Name) > -1) {
+      // Check if name values contain special characters
+      if (/^[a-zA-Z0-9]*$/.test(val) === false) {
+        showError(item.label, "cannot contain special characters!");
+      }
+    }
+
+    if (item.like.indexOf(ResumeParsing.AllCategoryNames.MobileNumber)) {
+      const stringifiedNum = val.toString();
+      if (stringifiedNum.length < 5 || stringifiedNum.length > 13) {
+        // Minimum length of a phone number is 5 for Saint Helena and maximum is 13 for Austria
+        showError(item.label, "is not a valid phone number!");
+      }
     }
 
     function showError(field, msg) {
-      msg = msg ? " " + msg : " cannot be blank";
-      alert(field + msg);
+      msg = msg ? field + " " + msg : field + " cannot be blank!";
+      alert(msg);
+      throw msg;
     }
   };
 
@@ -1367,6 +1394,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   f.updateAllCount = updateFilledFields;
   f.init = init;
   f.isValid = validateForm;
+  f.validate = validate;
   f.updateToForm = updateToForm;
   
 })(ResumeParsing);
