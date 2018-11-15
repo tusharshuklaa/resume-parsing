@@ -1406,6 +1406,20 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 $(() => {
   // Initialize UserForm on Document Ready
   ResumeParsing.Main.init();
+  function adjustResumeZoom() {
+    const sw = $(window).width(),
+      resumeItems = $(ResumeParsing.DOM.resume + " > div"),
+      rw = $(resumeItems[0]).width(),
+      zoom = ((sw * 0.7) / rw).toFixed(2);
+    resumeItems.css({
+      "transform": "scale("+ zoom +")"
+    });
+  }
+
+  $(window).resize(function () {
+    adjustResumeZoom();
+  });
+  adjustResumeZoom();
 });
 
 //#endregion

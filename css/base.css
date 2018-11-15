@@ -1,12 +1,4 @@
-.resume-page .resume-container .resume {
-  width: 210mm;
-  height: 297mm;
-  box-shadow: 0px 0px 2px 0px black;
-  margin: 10px auto;
-  padding: 1.5em;
-  text-align: justify; }
-
-.resume-container .resume-page .resume-meta, header.resume-tools {
+.resume .resume-page .resume-meta, header.resume-tools {
   position: fixed;
   z-index: 10;
   top: 0px; }
@@ -44,7 +36,7 @@ section.side-bar-content .info-section .descriptionList > textarea {
   section.side-bar-content .info-section .descriptionList > textarea:-ms-input-placeholder {
     color: #ffffff; }
 
-.resume-container {
+.resume {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -52,7 +44,7 @@ section.side-bar-content .info-section .descriptionList > textarea {
   display: flex;
   padding-top: 41px;
   overflow: hidden; }
-  .resume-container .resume-page {
+  .resume .resume-page {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -70,16 +62,16 @@ section.side-bar-content .info-section .descriptionList > textarea {
     -moz-flex-shrink: 1;
     -ms-flex-shrink: 1;
     flex-shrink: 1;
-    -webkit-flex-basis: calc(100% - 30%);
-    -moz-flex-basis: calc(100% - 30%);
-    -ms-flex-basis: calc(100% - 30%);
-    flex-basis: calc(100% - 30%);
+    -webkit-flex-basis: 70%;
+    -moz-flex-basis: 70%;
+    -ms-flex-basis: 70%;
+    flex-basis: 70%;
     -webkit-justify-content: space-between;
     -moz-justify-content: space-between;
     -ms-justify-content: space-between;
     justify-content: space-between;
     -ms-flex-pack: space-between; }
-    .resume-container .resume-page .resume-meta {
+    .resume .resume-page .resume-meta {
       display: -webkit-box;
       display: -moz-box;
       display: -ms-flexbox;
@@ -94,16 +86,16 @@ section.side-bar-content .info-section .descriptionList > textarea {
       -moz-align-items: center;
       -ms-align-items: center;
       align-items: center;
-      width: calc(100% - 30%);
+      width: 70%;
       background-color: #A6A6A6;
       z-index: 1001; }
-      .resume-container .resume-page .resume-meta i.fa {
+      .resume .resume-page .resume-meta i.fa {
         cursor: pointer;
         font-size: 1.5em;
         padding: 10px;
         background-color: #A56BD2;
         color: #ffffff; }
-      .resume-container .resume-page .resume-meta .resume-progress {
+      .resume .resume-page .resume-meta .resume-progress {
         position: absolute;
         left: 38px;
         padding: 20.5px 0;
@@ -111,11 +103,11 @@ section.side-bar-content .info-section .descriptionList > textarea {
         background-color: #90D151;
         color: #ffffff;
         transition: width 1s cubic-bezier(0.65, 0.05, 0.36, 1); }
-        .resume-container .resume-page .resume-meta .resume-progress + span {
+        .resume .resume-page .resume-meta .resume-progress + span {
           margin: auto;
           z-index: 10002;
           color: #ffffff; }
-  .resume-container .resume-side-bar {
+  .resume .resume-side-bar {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -142,12 +134,37 @@ section.side-bar-content .info-section .descriptionList > textarea {
   height: 100%;
   background-color: #ffffff; }
   .resume-page .resume-container {
-    overflow: auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-grow: 0;
+    -moz-flex-grow: 0;
+    -ms-flex-grow: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 1;
+    -moz-flex-shrink: 1;
+    -ms-flex-shrink: 1;
+    flex-shrink: 1;
+    -webkit-flex-basis: 70%;
+    -moz-flex-basis: 70%;
+    -ms-flex-basis: 70%;
+    flex-basis: 70%;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    -ms-justify-content: space-between;
+    justify-content: space-between;
+    -ms-flex-pack: space-between;
+    overflow: hidden;
     position: relative; }
-    .resume-page .resume-container .resume {
-      display: none; }
-      .resume-page .resume-container .resume.resume-active {
-        display: block; }
+    .resume-page .resume-container > div:not(.rp-context-menu) {
+      display: inline-block;
+      transform-origin: top left; }
   .resume-page .resume-meta .resume-form-info #form-count {
     font-weight: 600; }
 
