@@ -1407,12 +1407,17 @@ $(() => {
   // Initialize UserForm on Document Ready
   ResumeParsing.Main.init();
   function adjustResumeZoom() {
+    let bf =  14;
     const sw = $(window).width(),
       resumeItems = $(ResumeParsing.DOM.resume + " > div"),
       rw = $(resumeItems[0]).width(),
-      zoom = ((sw * 0.7) / rw).toFixed(2);
+      currEm = (rw/bf).toFixed(4);
+
+    while (((bf + 1) * currEm) < (sw * 0.7)) {
+      bf++;
+    }
     resumeItems.css({
-      "transform": "scale("+ zoom +")"
+      "font-size": bf + "px"
     });
   }
 

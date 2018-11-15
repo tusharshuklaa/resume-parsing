@@ -7,23 +7,11 @@
   background-color: $baseBgColor;
   
   .resume-container {
-    @include megaFlex(fg 0 fs 1 fb (100% - $sideBarWidth) fd column jc space-between);
     overflow: hidden;
     position: relative;
 
     > div:not(.rp-context-menu) {
       display: inline-block;
-      transform-origin: top left;
-    }
-
-    // .resume {
-    //   @extend %A4Sheet;
-    //   display: none;
-
-    //   &.resume-active {
-    //     display: block;
-    //   }
-    // }
   }
   
   .resume-meta {

@@ -134,37 +134,10 @@ section.side-bar-content .info-section .descriptionList > textarea {
   height: 100%;
   background-color: #ffffff; }
   .resume-page .resume-container {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-grow: 0;
-    -moz-flex-grow: 0;
-    -ms-flex-grow: 0;
-    flex-grow: 0;
-    -webkit-flex-shrink: 1;
-    -moz-flex-shrink: 1;
-    -ms-flex-shrink: 1;
-    flex-shrink: 1;
-    -webkit-flex-basis: 70%;
-    -moz-flex-basis: 70%;
-    -ms-flex-basis: 70%;
-    flex-basis: 70%;
-    -webkit-justify-content: space-between;
-    -moz-justify-content: space-between;
-    -ms-justify-content: space-between;
-    justify-content: space-between;
-    -ms-flex-pack: space-between;
     overflow: hidden;
     position: relative; }
     .resume-page .resume-container > div:not(.rp-context-menu) {
-      display: inline-block;
-      transform-origin: top left; }
+      display: inline-block; }
   .resume-page .resume-meta .resume-form-info #form-count {
     font-weight: 600; }
 
