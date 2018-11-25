@@ -14,13 +14,22 @@
 
 <body translate="no">
 
+  <header class="fn-header">
+    <!-- <i title="Watch a demo" class="fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
+        <div class="resume-progress"></div>
+        <span id="progressStatus">0% Complete</span> -->
+    <div class="header-logo">
+      <img src="assets/images/logo.png" alt="Form Nexus Logo">
+      <span>FormNexus</span>
+    </div>
+    <ul class="header-items">
+      <li><a href="javascript: void(0)">About Us</a></li>
+      <li><a href="javascript: void(0)">Reach Us</a></li>
+      <li><a href="javascript: void(0)">Logout</a></li>
+    </ul>
+  </header>
   <section class="resume">
     <div class="resume-page">
-      <header class="resume-meta">
-        <i title="Watch a demo" class="fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
-        <div class="resume-progress"></div>
-        <span id="progressStatus">0% Complete</span>
-      </header>
       <section id="resume" class="resume-container">
         <div class="parsed-resume">
           <link rel="stylesheet" type="text/css" href="resultant_files/style.css" />
@@ -450,47 +459,45 @@
         </div>
       </section>
     </div>
-    <div class="resume-side-bar">
-      <header class="resume-tools">
-        <section class="left-tools">
-          <i class="prev fa fa-caret-left disabled"></i>
-          <span><span id="page-count">0 / 0</span> pages</span>
-          <i class="next fa fa-caret-right"></i>
-        </section>
-        <section class="right-tools">
-          <button id="saveResume" class="btn btn-sm">Next</button>
-        </section>
-      </header>
-      <section id="side-bar-form" class="side-bar-content">
-        <section class="info-section personal-info">
-          <input id="_resume_firstName" type="text" class="form-item input-headline half-width" placeholder="First Name" />
-          <input id="_resume_lastName" type="text" class="form-item input-headline half-width" placeholder="Last Name" />
-          <input id="_resume_phone" type="number" class="form-item" placeholder="Mobile Number" />
-          <input id="_resume_email" type="email" class="form-item" placeholder="Email Address" />
-          <textarea id="_resume_headline" class="form-item" placeholder="Profile Headline"></textarea>
-        </section>
-        <section class="info-section professional-info">
-          <input id="_resume_lastCompanyName" type="text" class="form-item input-headline" placeholder="Last Company Name" />
-          <input id="_resume_lastCompanyDesignation" type="text" class="form-item" placeholder="Last Designation" />
-          <input id="_resume_companySince" type="date" class="form-item" placeholder="Working Since" />
-          <input id="_resume_companyTill" type="date" class="form-item" placeholder="Worked Till" />
-          <section class="descriptionList">
-            <span>Description</span>
-            <textarea id="_resume_companyDetails" class="form-item" placeholder="..."></textarea>
-          </section>
-        </section>
-        <section class="info-section educational-info">
-          <input id="_resume_collegeName" type="text" class="input-headline" placeholder="University/Institute name" />
-          <input id="_resume_course" type="text" placeholder="Course name" />
-          <input id="_resume_collegeSince" type="date" placeholder="Studied From" />
-          <input id="_resume_collegeTill" type="date" placeholder="Studied Till" />
-          <section class="descriptionList">
-            <span>Description</span>
-            <textarea id="_resume_collegeDetails" type="text" placeholder="..."></textarea>
-          </section>
+    <!-- <header class="resume-tools">
+      <section class="left-tools">
+        <i class="prev fa fa-caret-left disabled"></i>
+        <span><span id="page-count">0 / 0</span> pages</span>
+        <i class="next fa fa-caret-right"></i>
+      </section>
+      <section class="right-tools">
+        <button id="saveResume" class="btn btn-sm">Next</button>
+      </section>
+    </header> -->
+    <section id="side-bar-form" class="resume-side-bar">
+      <section class="info-section personal-info">
+        <input id="_resume_firstName" type="text" class="form-item input-headline half-width" placeholder="First Name" />
+        <input id="_resume_lastName" type="text" class="form-item input-headline half-width" placeholder="Last Name" />
+        <input id="_resume_phone" type="number" class="form-item" placeholder="Mobile Number" />
+        <input id="_resume_email" type="email" class="form-item" placeholder="Email Address" />
+        <textarea id="_resume_headline" class="form-item" placeholder="Profile Headline"></textarea>
+      </section>
+      <section class="info-section professional-info">
+        <input id="_resume_lastCompanyName" type="text" class="form-item input-headline" placeholder="Last Company Name" />
+        <input id="_resume_lastCompanyDesignation" type="text" class="form-item" placeholder="Last Designation" />
+        <input id="_resume_companySince" type="date" class="form-item" placeholder="Working Since" />
+        <input id="_resume_companyTill" type="date" class="form-item" placeholder="Worked Till" />
+        <section class="descriptionList">
+          <span>Description</span>
+          <textarea id="_resume_companyDetails" class="form-item" placeholder="..."></textarea>
         </section>
       </section>
-    </div>
+      <section class="info-section educational-info">
+        <input id="_resume_collegeName" type="text" class="input-headline" placeholder="University/Institute name" />
+        <input id="_resume_course" type="text" placeholder="Course name" />
+        <input id="_resume_collegeSince" type="date" placeholder="Studied From" />
+        <input id="_resume_collegeTill" type="date" placeholder="Studied Till" />
+        <section class="descriptionList">
+          <span>Description</span>
+          <textarea id="_resume_collegeDetails" type="text" placeholder="..."></textarea>
+        </section>
+      </section>
+    </section>
   </section>
   <div class="modal fade" id="_userHint" role="dialog">
     <div class="modal-dialog">

@@ -1,0 +1,16 @@
+.fn-header {
+  @include position(fixed, top 0px left 0px right 0px);
+  @include flexbox;
+  background-color: $darkPurple;
+  .header-logo {
+    > img {}
+
+    > span {}
+  }
+
+  ul.header-items {
+    li {
+      a {}
+    }
+  }
+}

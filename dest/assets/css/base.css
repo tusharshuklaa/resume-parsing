@@ -1,39 +1,39 @@
-.resume .resume-page .resume-meta, header.resume-tools {
+.resume .resume-page .resume-meta {
   position: fixed;
   z-index: 10;
   top: 0px; }
 
-section.side-bar-content .info-section > input,
-section.side-bar-content .info-section > textarea, section.side-bar-content .info-section .descriptionList > input,
-section.side-bar-content .info-section .descriptionList > textarea {
+.resume-side-bar .info-section > input,
+.resume-side-bar .info-section > textarea, .resume-side-bar .info-section .descriptionList > input,
+.resume-side-bar .info-section .descriptionList > textarea {
   background-color: transparent;
   border: 0;
   color: #ffffff; }
 
-section.side-bar-content .info-section > input,
-section.side-bar-content .info-section > textarea, section.side-bar-content .info-section .descriptionList > input,
-section.side-bar-content .info-section .descriptionList > textarea {
+.resume-side-bar .info-section > input,
+.resume-side-bar .info-section > textarea, .resume-side-bar .info-section .descriptionList > input,
+.resume-side-bar .info-section .descriptionList > textarea {
   padding: 2.5px 5px;
   width: 100%; }
-  section.side-bar-content .info-section > input:focus,
-  section.side-bar-content .info-section > textarea:focus, section.side-bar-content .info-section .descriptionList > input:focus,
-  section.side-bar-content .info-section .descriptionList > textarea:focus {
+  .resume-side-bar .info-section > input:focus,
+  .resume-side-bar .info-section > textarea:focus, .resume-side-bar .info-section .descriptionList > input:focus,
+  .resume-side-bar .info-section .descriptionList > textarea:focus {
     outline-color: #ffffff; }
-  section.side-bar-content .info-section > input::-webkit-input-placeholder,
-  section.side-bar-content .info-section > textarea::-webkit-input-placeholder, section.side-bar-content .info-section .descriptionList > input::-webkit-input-placeholder,
-  section.side-bar-content .info-section .descriptionList > textarea::-webkit-input-placeholder {
+  .resume-side-bar .info-section > input::-webkit-input-placeholder,
+  .resume-side-bar .info-section > textarea::-webkit-input-placeholder, .resume-side-bar .info-section .descriptionList > input::-webkit-input-placeholder,
+  .resume-side-bar .info-section .descriptionList > textarea::-webkit-input-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input:-moz-placeholder,
-  section.side-bar-content .info-section > textarea:-moz-placeholder, section.side-bar-content .info-section .descriptionList > input:-moz-placeholder,
-  section.side-bar-content .info-section .descriptionList > textarea:-moz-placeholder {
+  .resume-side-bar .info-section > input:-moz-placeholder,
+  .resume-side-bar .info-section > textarea:-moz-placeholder, .resume-side-bar .info-section .descriptionList > input:-moz-placeholder,
+  .resume-side-bar .info-section .descriptionList > textarea:-moz-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input::-moz-placeholder,
-  section.side-bar-content .info-section > textarea::-moz-placeholder, section.side-bar-content .info-section .descriptionList > input::-moz-placeholder,
-  section.side-bar-content .info-section .descriptionList > textarea::-moz-placeholder {
+  .resume-side-bar .info-section > input::-moz-placeholder,
+  .resume-side-bar .info-section > textarea::-moz-placeholder, .resume-side-bar .info-section .descriptionList > input::-moz-placeholder,
+  .resume-side-bar .info-section .descriptionList > textarea::-moz-placeholder {
     color: #ffffff; }
-  section.side-bar-content .info-section > input:-ms-input-placeholder,
-  section.side-bar-content .info-section > textarea:-ms-input-placeholder, section.side-bar-content .info-section .descriptionList > input:-ms-input-placeholder,
-  section.side-bar-content .info-section .descriptionList > textarea:-ms-input-placeholder {
+  .resume-side-bar .info-section > input:-ms-input-placeholder,
+  .resume-side-bar .info-section > textarea:-ms-input-placeholder, .resume-side-bar .info-section .descriptionList > input:-ms-input-placeholder,
+  .resume-side-bar .info-section .descriptionList > textarea:-ms-input-placeholder {
     color: #ffffff; }
 
 .resume {
@@ -130,6 +130,18 @@ section.side-bar-content .info-section .descriptionList > textarea {
     -ms-flex-basis: 30%;
     flex-basis: 30%; }
 
+.fn-header {
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  position: fixed;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #46166A; }
+
 .resume-page {
   height: 100%;
   background-color: #ffffff; }
@@ -141,68 +153,7 @@ section.side-bar-content .info-section .descriptionList > textarea {
     .resume-page .resume-container .resume-meta .resume-form-info #form-count {
       font-weight: 600; }
 
-header.resume-tools {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-grow: 0;
-  -moz-flex-grow: 0;
-  -ms-flex-grow: 0;
-  flex-grow: 0;
-  -webkit-flex-shrink: 0;
-  -moz-flex-shrink: 0;
-  -ms-flex-shrink: 0;
-  flex-shrink: 0;
-  -webkit-flex-basis: auto;
-  -moz-flex-basis: auto;
-  -ms-flex-basis: auto;
-  flex-basis: auto;
-  -webkit-justify-content: space-between;
-  -moz-justify-content: space-between;
-  -ms-justify-content: space-between;
-  justify-content: space-between;
-  -ms-flex-pack: space-between;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  width: 30%;
-  background-color: #A56BD2;
-  color: #ffffff;
-  border-bottom: 2px solid #ffffff; }
-  header.resume-tools .left-tools {
-    padding: 10px 15px; }
-    header.resume-tools .left-tools i.fa {
-      font-size: 1.4em;
-      cursor: pointer;
-      vertical-align: middle;
-      text-shadow: 1px 1px 0px black; }
-      header.resume-tools .left-tools i.fa.disabled {
-        color: #A6A6A6;
-        pointer-events: none; }
-    header.resume-tools .left-tools i.prev {
-      margin-right: 10px; }
-    header.resume-tools .left-tools i.next {
-      margin-left: 10px; }
-    header.resume-tools .left-tools > span {
-      display: inline-block;
-      vertical-align: middle;
-      pointer-events: none; }
-  header.resume-tools .right-tools .btn {
-    font-size: 1.4em;
-    line-height: 1;
-    background-color: #A56BD2;
-    border-radius: 0px;
-    padding: 10px 15px;
-    border-left: 2px solid #ffffff; }
-
-section.side-bar-content {
+.resume-side-bar {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -227,33 +178,33 @@ section.side-bar-content {
   background-color: #A56BD2;
   color: #ffffff;
   padding: 10%; }
-  section.side-bar-content .info-section {
+  .resume-side-bar .info-section {
     padding: 20px 0;
     border-bottom: 1px solid #ffffff; }
-    section.side-bar-content .info-section > input.input-headline {
+    .resume-side-bar .info-section > input.input-headline {
       font-size: 1.1em;
       text-shadow: 0px 0px 0px; }
-    section.side-bar-content .info-section > input.half-width {
+    .resume-side-bar .info-section > input.half-width {
       max-width: 50%;
       float: left; }
-    section.side-bar-content .info-section > input[type="date"]:before {
+    .resume-side-bar .info-section > input[type="date"]:before {
       color: white;
       content: attr(placeholder) !important;
       min-width: 100px;
       position: absolute;
       background-color: #A56BD2;
       cursor: text; }
-    section.side-bar-content .info-section > input[type="date"]:focus:before {
+    .resume-side-bar .info-section > input[type="date"]:focus:before {
       content: '' !important; }
-    section.side-bar-content .info-section > textarea {
+    .resume-side-bar .info-section > textarea {
       resize: none; }
-    section.side-bar-content .info-section .descriptionList {
+    .resume-side-bar .info-section .descriptionList {
       padding-top: 20px; }
-      section.side-bar-content .info-section .descriptionList > span {
+      .resume-side-bar .info-section .descriptionList > span {
         display: block;
         padding: 0px 5px;
         text-shadow: 0px 0px 0px; }
-      section.side-bar-content .info-section .descriptionList > textarea {
+      .resume-side-bar .info-section .descriptionList > textarea {
         resize: none; }
 
 .rp-context-menu {
