@@ -4,11 +4,15 @@
 
 .resume {
   @include flexbox();
-  padding-top: $headerHeight;
+  margin-top: $headerHeight;
   overflow: hidden;
+  position: fixed;
 
   .resume-page {
     @include megaFlex(fg 0 fs 1 fb (100% - $sideBarWidth) fd column jc space-between);
+    overflow: auto;
+    height: calc(100vh - #{$headerHeight});
+    max-width: calc(100% - #{$sideBarWidth});
 
     .resume-meta {
       @include megaFlex(ai center jc flex-start);
@@ -40,9 +44,5 @@
         }
       }
     }
-  }
-
-  .resume-side-bar {
-    @include megaFlex(fg 1 fs 0 fb $sideBarWidth fd column);
   }
 }

@@ -49,10 +49,12 @@
 // }
 
 .resume-side-bar {
-  @include megaFlex(fd column fs 1 fg 1 fb auto);
+  @include megaFlex(fd column fs 1 fg 1 fb $sideBarWidth);
   background-color: $bgColor1;
   color: $txtColor1;
-  padding: 10%;
+  padding: $basePad3;
+  overflow: auto;
+  height: calc(100vh - #{$headerHeight});
 
   .info-section {
     padding: 20px 0;

@@ -1,16 +1,47 @@
 .fn-header {
   @include position(fixed, top 0px left 0px right 0px);
-  @include flexbox;
+  @include megaFlex(jc space-between ai center);
+  padding: $basePad3 $basePad2 * 2;
   background-color: $darkPurple;
-  .header-logo {
-    > img {}
+  z-index: 10;
 
-    > span {}
+  .header-logo {
+    @include megaFlex(ai center);
+
+    > img {
+      border: 1px solid white;
+    }
+
+    > span {
+      color: $white;
+      font-size: 1.8em;
+      display: inline-block;
+      margin-left: 10px;
+      font-family: monospace;
+      letter-spacing: -2px;
+    }
   }
 
   ul.header-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
     li {
-      a {}
+      float: left;
+
+      a {
+        text-decoration: none;
+        color: $white;
+      }
+
+      &:not(:last-child) {
+        a:after {
+          content: "|";
+          margin: 0 $basePad1;
+          color: $purple;
+        }
+      }
     }
   }
 }
