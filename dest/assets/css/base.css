@@ -74,7 +74,8 @@
     -ms-flex-pack: space-between;
     overflow: auto;
     height: calc(100vh - 75px);
-    max-width: calc(100% - 30%); }
+    max-width: calc(101% - 30%);
+    min-width: calc(101% - 30%); }
     .resume .resume-page .resume-meta {
       display: -webkit-box;
       display: -moz-box;
@@ -204,7 +205,8 @@
   color: #ffffff;
   padding: 20px;
   overflow: auto;
-  height: calc(100vh - 75px); }
+  height: calc(100vh - 75px);
+  max-width: 30%; }
   .resume-side-bar .info-section {
     padding: 20px 0;
     border-bottom: 1px solid #ffffff; }

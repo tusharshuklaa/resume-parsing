@@ -55,6 +55,7 @@
   padding: $basePad3;
   overflow: auto;
   height: calc(100vh - #{$headerHeight});
+  max-width: $sideBarWidth;
 
   .info-section {
     padding: 20px 0;
