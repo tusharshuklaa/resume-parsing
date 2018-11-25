@@ -5,19 +5,20 @@
 .resume-page {
   height: 100%;
   background-color: $baseBgColor;
-  
+
   .resume-container {
     overflow: hidden;
     position: relative;
 
-    > div:not(.rp-context-menu) {
+    >div:not(.rp-context-menu) {
       display: inline-block;
-  }
-  
-  .resume-meta {
-    .resume-form-info {
-      #form-count {
-        font-weight: 600;
+    }
+
+    .resume-meta {
+      .resume-form-info {
+        #form-count {
+          font-weight: 600;
+        }
       }
     }
   }

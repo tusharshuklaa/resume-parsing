@@ -1,32 +1,14 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Run Everything",
-            "dependsOn": [
-                "Sass Compile",
-                "copy js"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Sass Compile",
-            "type": "shell",
-            "command": "node-sass src/scss/base.scss css/main.css",
-            "problemMatcher": [
-                "$node-sass"
-            ]
-        },
-        {
-            "label": "copy js",
-            "command": "copy src/js/main.js js",
-            "type": "shell"
-        }
-    ]
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [{
+    "label": "Gulp",
+    "group": {
+      "kind": "build",
+      "isDefault": true
+    },
+    "command": "gulp",
+    "type": "shell"
+  }]
 }

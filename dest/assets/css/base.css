@@ -138,8 +138,8 @@ section.side-bar-content .info-section .descriptionList > textarea {
     position: relative; }
     .resume-page .resume-container > div:not(.rp-context-menu) {
       display: inline-block; }
-  .resume-page .resume-meta .resume-form-info #form-count {
-    font-weight: 600; }
+    .resume-page .resume-container .resume-meta .resume-form-info #form-count {
+      font-weight: 600; }
 
 header.resume-tools {
   display: -webkit-box;

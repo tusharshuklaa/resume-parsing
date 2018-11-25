@@ -4,5 +4,8 @@
     "js/*.js",
     "css/*.css",
     "index.html"
-  ]
+  ],
+  "server": {
+    "baseDir": "./dest"
+  }
 }

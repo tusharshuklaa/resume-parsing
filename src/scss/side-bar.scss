@@ -29,7 +29,7 @@ header.resume-tools {
       margin-left: $subtleMargin;
     }
 
-    > span {
+    >span {
       display: inline-block;
       vertical-align: middle;
       pointer-events: none;
@@ -58,7 +58,7 @@ section.side-bar-content {
     padding: 20px 0;
     border-bottom: 1px solid $white;
 
-    > input {
+    >input {
       &.input-headline {
         font-size: 1.1em;
         text-shadow: 0px 0px 0px;
@@ -83,30 +83,30 @@ section.side-bar-content {
       }
     }
 
-    > textarea {
+    >textarea {
       resize: none;
     }
 
-    > input, 
-    > textarea {
+    >input,
+    >textarea {
       @extend %input;
     }
 
     .descriptionList {
       padding-top: 20px;
 
-      > span {
+      >span {
         display: block;
         padding: 0px 5px;
         text-shadow: 0px 0px 0px;
       }
 
-      > textarea {
+      >textarea {
         resize: none;
       }
 
-      > input,
-      > textarea {
+      >input,
+      >textarea {
         @extend %input;
       }
     }
