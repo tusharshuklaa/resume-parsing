@@ -1,12 +1,17 @@
 .floating-bar {
   @include megaFlex(jc space-around ai center);
   @include position(fixed, right 0px left 0px bottom 50px);
+  @include transition(bottom 0.5s cubic-bezier(0.65, 0.05, 0.36, 1));
   background-color: darken($lightWhite, 2%);
   color: $black;
   padding: $basePad1;
   box-shadow: 2px 2px 4px 1px $grey;
   max-width: 35%;
   margin: auto;
+
+  &.disabled {
+    bottom: -50px;
+  }
 
   > *:not(:last-child) {
     border-right: 1px solid $grey;

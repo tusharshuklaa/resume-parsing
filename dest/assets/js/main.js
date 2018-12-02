@@ -46,10 +46,7 @@ const ResumeParsing = {
   DOM: {
     resume: "#resume",
     currResumePage: ".resume-active",
-    resPagination: ".left-tools",
-    resPagePrev: ".prev.fa",
-    resPageNext: ".next.fa",
-    disabledResToggle: ".disabled",
+    disabled: "disabled",
     contextMenu: ".rp-context-menu",
     get cmOpen() {
       return this.contextMenu + "-open";
@@ -64,11 +61,11 @@ const ResumeParsing = {
     optFields: "#optFields",
     next: "#saveResume",
     fields: ".resume-field",
-    saveForm: "#saveNCloseForm",
-    closeForm: "#closeForm",
     progressBar: ".resume-progress_bar",
     form: "#side-bar-form",
-    formItem: "form-item"
+    floatingBar: ".floating-bar",
+    formItem: "form-item",
+    dateVal: "date-hasValue"
   }
 };
 
@@ -385,8 +382,6 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
   const init = function () {
       _initHandlers();
       f.init();
-      // Updating current resume page number vs all resume pages
-      _updatePageCount(_getPageCount());
     },
 
     /**
@@ -398,7 +393,8 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
        * Few variables required to hold click counters to support 3-click
        */
 
-      let clickTimer,
+      let waitForCmTimer,
+        waitForFbTimer,
         mdCoords;
       const clickDelay = 300;
 
@@ -410,10 +406,18 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
        * @param {MouseEvent} evt
        */
       $(elem.resume).on("mousedown", function (e) {
+        clearInterval(waitForCmTimer);
+        waitForFbTimer = setTimeout(function() {
+          let _txt = st.get();
+          if (_txt) {
+            $(elem.floatingBar).addClass(elem.disabled);
+          }
+        }, clickDelay);
+        // Hiding floating bar when seletion starts
+
         mdCoords = u.getMousePosition(e);
       }).on("mouseup", function (e) {
-        clearInterval(clickTimer);
-        clickTimer = setTimeout(function () {
+        waitForCmTimer = setTimeout(function () {
           let _txt = st.get();
           if (_txt) {
             cm.init({
@@ -425,44 +429,6 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
           } // else deselection or empty/invalid text in select
         }, clickDelay);
       });
-    },
-
-    /**
-     * Returns an object with 2 properties namely
-     * total: total number of resume pages
-     * curr: current visible page of resume on screen
-     *
-     * @returns {Object}
-     */
-    _getPageCount = function () {
-      const kids = $(elem.resume).children();
-      let pagesCount = 0,
-        currPage = 0;
-      if (kids && kids.length > 0) {
-        // there is at least onepage available
-        pagesCount = kids.length;
-        currPage = kids.index($(elem.currResumePage));
-        currPage = currPage > -1 ? currPage + 1 : 0;
-      }
-      return {
-        total: pagesCount,
-        curr: currPage
-      };
-    },
-
-    /**
-     * Takes in object with 2 properties namely
-     * total: total number of resume pages
-     * curr: current visible page of resume on screen
-     * and updates the DOM with corresponding page count
-     *
-     * @param {*} {total, curr}
-     */
-    _updatePageCount = function ({
-      total,
-      curr
-    }) {
-      $(elem.pageCount).html(curr + " / " + total);
     };
 
   // Making above private functions public
@@ -771,6 +737,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
      */
     _close = function () {
       body.removeClass(cmOpen);
+      $(elem.floatingBar).removeClass(elem.disabled);
       $(elem.contextMenu).remove();
     },
 
@@ -1228,6 +1195,15 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         // Save data via some ajax call and move to next page/layout
         alert("Success, all of the items are properly filled");
       });
+
+      $('input[type="date"]').on("change", function() {
+        const dateInput = $(this);
+        if(dateInput.val()) {
+          dateInput.addClass(elem.dateVal);
+        } else {
+          dateInput.removeClass(elem.dateVal);
+        }
+      });
     },
 
     /**
@@ -1258,7 +1234,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
         // Updating the original object
         item.value = txt;
 
-        _el.val(txt);
+        _el.val(txt).trigger("change");
         // Since textarea do not support auto height as per content, doing this via script in timeout
         setTimeout(function () {
           if (_el.is("textarea")) {

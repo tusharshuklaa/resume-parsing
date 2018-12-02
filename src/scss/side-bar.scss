@@ -75,22 +75,29 @@
       &[type="date"] {
         color: transparent;
 
-        &:before {
+        &.date-hasValue {
           color: white;
-          content: attr(placeholder) !important;
-          min-width: 100px;
-          background-color: $purple;
-          cursor: text;
-        }
-
-        &:focus {
-          color: white;
-
           &:before {
             content: '' !important;
             min-width: 0px;
           }
         }
+
+        &:before {
+          color: white;
+          content: attr(placeholder);
+          min-width: 100px;
+          background-color: $purple;
+          cursor: text;
+        }
+
+        // &:focus {
+        //   color: white;
+
+        //   &:before {
+        //     @extend %hasValue;
+        //   }
+        // }
       }
     }
 
