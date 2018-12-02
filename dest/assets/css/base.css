@@ -1,38 +1,40 @@
-.resume .resume-page .resume-meta {
-  position: fixed;
-  z-index: 10;
-  top: 0px; }
+figcaption,
+figure,
+aside,
+article,
+main {
+  display: block; }
 
-.resume-side-bar .info-section > input,
+.resume-side-bar .info-section input,
 .resume-side-bar .info-section > textarea, .resume-side-bar .info-section .descriptionList > input,
 .resume-side-bar .info-section .descriptionList > textarea {
   background-color: transparent;
   border: 0;
   color: #ffffff; }
 
-.resume-side-bar .info-section > input,
+.resume-side-bar .info-section input,
 .resume-side-bar .info-section > textarea, .resume-side-bar .info-section .descriptionList > input,
 .resume-side-bar .info-section .descriptionList > textarea {
   padding: 2.5px 5px;
   width: 100%; }
-  .resume-side-bar .info-section > input:focus,
-  .resume-side-bar .info-section > textarea:focus, .resume-side-bar .info-section .descriptionList > input:focus,
+  .resume-side-bar .info-section input:focus,
+  .resume-side-bar .info-section > textarea:focus,
   .resume-side-bar .info-section .descriptionList > textarea:focus {
     outline-color: #ffffff; }
-  .resume-side-bar .info-section > input::-webkit-input-placeholder,
+  .resume-side-bar .info-section input::-webkit-input-placeholder,
   .resume-side-bar .info-section > textarea::-webkit-input-placeholder, .resume-side-bar .info-section .descriptionList > input::-webkit-input-placeholder,
   .resume-side-bar .info-section .descriptionList > textarea::-webkit-input-placeholder {
     color: #ffffff; }
-  .resume-side-bar .info-section > input:-moz-placeholder,
-  .resume-side-bar .info-section > textarea:-moz-placeholder, .resume-side-bar .info-section .descriptionList > input:-moz-placeholder,
+  .resume-side-bar .info-section input:-moz-placeholder,
+  .resume-side-bar .info-section > textarea:-moz-placeholder,
   .resume-side-bar .info-section .descriptionList > textarea:-moz-placeholder {
     color: #ffffff; }
-  .resume-side-bar .info-section > input::-moz-placeholder,
+  .resume-side-bar .info-section input::-moz-placeholder,
   .resume-side-bar .info-section > textarea::-moz-placeholder, .resume-side-bar .info-section .descriptionList > input::-moz-placeholder,
   .resume-side-bar .info-section .descriptionList > textarea::-moz-placeholder {
     color: #ffffff; }
-  .resume-side-bar .info-section > input:-ms-input-placeholder,
-  .resume-side-bar .info-section > textarea:-ms-input-placeholder, .resume-side-bar .info-section .descriptionList > input:-ms-input-placeholder,
+  .resume-side-bar .info-section input:-ms-input-placeholder,
+  .resume-side-bar .info-section > textarea:-ms-input-placeholder,
   .resume-side-bar .info-section .descriptionList > textarea:-ms-input-placeholder {
     color: #ffffff; }
 
@@ -76,42 +78,6 @@
     height: calc(100vh - 75px);
     max-width: calc(101% - 30%);
     min-width: calc(101% - 30%); }
-    .resume .resume-page .resume-meta {
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-justify-content: flex-start;
-      -moz-justify-content: flex-start;
-      -ms-justify-content: flex-start;
-      justify-content: flex-start;
-      -ms-flex-pack: flex-start;
-      -webkit-align-items: center;
-      -moz-align-items: center;
-      -ms-align-items: center;
-      align-items: center;
-      width: 70%;
-      background-color: #A6A6A6;
-      z-index: 1001; }
-      .resume .resume-page .resume-meta i.fa {
-        cursor: pointer;
-        font-size: 1.5em;
-        padding: 10px;
-        background-color: #A56BD2;
-        color: #ffffff; }
-      .resume .resume-page .resume-meta .resume-progress {
-        position: absolute;
-        left: 38px;
-        padding: 20.5px 0;
-        width: 0;
-        background-color: #90D151;
-        color: #ffffff;
-        transition: width 1s cubic-bezier(0.65, 0.05, 0.36, 1); }
-        .resume .resume-page .resume-meta .resume-progress + span {
-          margin: auto;
-          z-index: 10002;
-          color: #ffffff; }
 
 .fn-header {
   top: 0px;
@@ -210,23 +176,38 @@
   .resume-side-bar .info-section {
     padding: 20px 0;
     border-bottom: 1px solid #ffffff; }
-    .resume-side-bar .info-section > input.input-headline {
+    .resume-side-bar .info-section input.input-headline {
       font-size: 1.1em;
       text-shadow: 0px 0px 0px; }
-    .resume-side-bar .info-section > input.half-width {
+    .resume-side-bar .info-section input.half-width {
       max-width: 50%;
       float: left; }
-    .resume-side-bar .info-section > input[type="date"]:before {
-      color: white;
-      content: attr(placeholder) !important;
-      min-width: 100px;
-      position: absolute;
-      background-color: #A56BD2;
-      cursor: text; }
-    .resume-side-bar .info-section > input[type="date"]:focus:before {
-      content: '' !important; }
+    .resume-side-bar .info-section input[type="date"] {
+      color: transparent; }
+      .resume-side-bar .info-section input[type="date"]:before {
+        color: white;
+        content: attr(placeholder) !important;
+        min-width: 100px;
+        background-color: #A56BD2;
+        cursor: text; }
+      .resume-side-bar .info-section input[type="date"]:focus {
+        color: white; }
+        .resume-side-bar .info-section input[type="date"]:focus:before {
+          content: '' !important;
+          min-width: 0px; }
     .resume-side-bar .info-section > textarea {
       resize: none; }
+    .resume-side-bar .info-section .avatar-region {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      padding: 2.5px 5px; }
+      .resume-side-bar .info-section .avatar-region > div:first-child {
+        margin-right: 10px; }
+        .resume-side-bar .info-section .avatar-region > div:first-child + div {
+          margin-top: -5px; }
     .resume-side-bar .info-section .descriptionList {
       padding-top: 20px; }
       .resume-side-bar .info-section .descriptionList > span {
@@ -278,6 +259,15 @@
   .rp-context-menu-open .rp-context-menu {
     z-index: 10000;
     visibility: visible; }
+  .rp-context-menu-open .resume-page:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 9999; }
   .rp-context-menu .rp-context-menu-items {
     position: relative;
     -webkit-box-shadow: none;
@@ -316,3 +306,68 @@
     border-radius: 0px 0px 1px 1px;
     text-shadow: 0px 0px 0px;
     letter-spacing: 0.8px; }
+
+.floating-bar {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: space-around;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  right: 0px;
+  bottom: 50px;
+  left: 0px;
+  position: fixed;
+  background-color: #eaeaea;
+  color: #000;
+  padding: 10px;
+  box-shadow: 2px 2px 4px 1px #A6A6A6;
+  max-width: 35%;
+  margin: auto; }
+  .floating-bar > *:not(:last-child) {
+    border-right: 1px solid #A6A6A6;
+    padding-right: 20px; }
+  .floating-bar .resume-info {
+    font-size: 1.4em;
+    cursor: pointer; }
+  .floating-bar .resume-progress {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    -ms-justify-content: space-between;
+    justify-content: space-between;
+    -ms-flex-pack: space-between;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-flex-basis: 70%;
+    -moz-flex-basis: 70%;
+    -ms-flex-basis: 70%;
+    flex-basis: 70%; }
+    .floating-bar .resume-progress_bar {
+      -webkit-transition: width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+      -moz-transition: width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+      -ms-transition: width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+      -o-transition: width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+      transition: width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+      background-color: #90D151;
+      height: 10px;
+      border-radius: 10px; }
+  .floating-bar .resume-finish {
+    background-color: transparent;
+    padding: 0px;
+    border: 0px;
+    outline: 0px; }

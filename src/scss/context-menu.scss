@@ -4,7 +4,7 @@
   @include megaFlex(fd column);
   @include prefix((
     transform: translateY(10px),
-    transform-origin: center bottom 0px), 
+    transform-origin: center bottom 0px),
     moz webkit ms o
   );
   background-color: $white;
@@ -19,9 +19,24 @@
   margin-left: -40px;
   padding: 0;
 
-  #{&}-open & {
+  &-open & {
     z-index: 10000;
     visibility: visible;
+  }
+
+  &-open {
+    .resume-page {
+      &:before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: transparent;
+        z-index: 9999;
+      }
+    }
   }
 
   #{&}-items {

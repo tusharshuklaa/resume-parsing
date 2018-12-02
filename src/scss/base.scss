@@ -1,6 +1,16 @@
+// overrides - in case html5 tags are unsupported
+figcaption,
+figure,
+aside,
+article,
+main {
+  display: block;
+}
+
 @import "_utility.scss";
 @import "main.scss";
 @import "header.scss";
 @import "resume-page.scss";
 @import "side-bar.scss";
 @import "context-menu.scss";
+@import "floating-bar.scss";

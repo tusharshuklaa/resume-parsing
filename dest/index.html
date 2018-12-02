@@ -18,18 +18,18 @@
     <!-- <i title="Watch a demo" class="fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
         <div class="resume-progress"></div>
         <span id="progressStatus">0% Complete</span> -->
-    <div class="header-logo">
+    <a href="javascript:void(0)" class="header-logo">
       <img src="assets/images/logo.png" alt="Form Nexus Logo" class="img-responsive">
       <span>FormNexus</span>
-    </div>
+    </a>
     <ul class="header-items">
       <li><a href="javascript: void(0)">About Us</a></li>
       <li><a href="javascript: void(0)">Reach Us</a></li>
       <li><a href="javascript: void(0)">Logout</a></li>
     </ul>
   </header>
-  <section class="resume">
-    <section id="resume" class="resume-page">
+  <main class="resume">
+    <article id="resume" class="resume-page">
       <link rel="stylesheet" type="text/css" href="resultant_files/style.css" />
       <div class="stl_02">
         <div class="stl_03">
@@ -454,23 +454,20 @@
           </div>
         </div>
       </div>
-    </section>
-    <!-- <header class="resume-tools">
-      <section class="left-tools">
-        <i class="prev fa fa-caret-left disabled"></i>
-        <span><span id="page-count">0 / 0</span> pages</span>
-        <i class="next fa fa-caret-right"></i>
-      </section>
-      <section class="right-tools">
-        <button id="saveResume" class="btn btn-sm">Next</button>
-      </section>
-    </header> -->
-    <section id="side-bar-form" class="resume-side-bar">
+    </article>
+    <aside id="side-bar-form" class="resume-side-bar">
       <section class="info-section personal-info">
-        <input id="_resume_firstName" type="text" class="form-item input-headline half-width" placeholder="First Name" />
-        <input id="_resume_lastName" type="text" class="form-item input-headline half-width" placeholder="Last Name" />
-        <input id="_resume_phone" type="number" class="form-item" placeholder="Mobile Number" />
-        <input id="_resume_email" type="email" class="form-item" placeholder="Email Address" />
+        <section class="avatar-region">
+          <div>
+            <img src="./assets/images/avatar.png" alt="User Avatar" class="img-responsive">
+          </div>
+          <div>
+            <input id="_resume_firstName" type="text" class="form-item input-headline half-width" placeholder="First Name" />
+            <input id="_resume_lastName" type="text" class="form-item input-headline half-width" placeholder="Last Name" />
+            <input id="_resume_phone" type="number" class="form-item" placeholder="Mobile Number" />
+            <input id="_resume_email" type="email" class="form-item" placeholder="Email Address" />
+          </div>
+        </section>
         <textarea id="_resume_headline" class="form-item" placeholder="Profile Headline"></textarea>
       </section>
       <section class="info-section professional-info">
@@ -493,8 +490,17 @@
           <textarea id="_resume_collegeDetails" type="text" placeholder="..."></textarea>
         </section>
       </section>
-    </section>
-  </section>
+    </aside>
+
+    <div class="floating-bar">
+      <i title="Watch a demo" class="resume-info fa fa-info-circle" data-toggle="modal" data-target="#_userHint"></i>
+      <section class="resume-progress">
+        <div class="resume-progress_bar"></div>
+        <span id="progressStatus">0%</span>
+      </section>
+      <button id="saveResume" class="resume-finish">Finish</button>
+    </div>
+  </main>
   <div class="modal fade" id="_userHint" role="dialog">
     <div class="modal-dialog">
 

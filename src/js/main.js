@@ -62,12 +62,11 @@ const ResumeParsing = {
     pageCount: "#page-count",
     reqFields: "#reqFields",
     optFields: "#optFields",
-    preview: "#previewResume",
     next: "#saveResume",
     fields: ".resume-field",
     saveForm: "#saveNCloseForm",
     closeForm: "#closeForm",
-    progressBar: ".resume-progress",
+    progressBar: ".resume-progress_bar",
     form: "#side-bar-form",
     formItem: "form-item"
   }
@@ -90,94 +89,115 @@ const ResumeParsing = {
    */
 
   const makeDomElem = function (name, isUnique) {
-      const pre = isUnique ? "#" : ".";
-      return pre + name;
-    },
+    const pre = isUnique ? "#" : ".";
+    return pre + name;
+  },
 
-    /**
-     * A small helper function to remove either '.' or '#' from the string provided
-     *
-     * @param {String} elem
-     * @returns {String} Element Identifier name
-     */
-    removeDomIdentifier = function (elem) {
-      return elem.substring(1, elem.length);
-    },
+  /**
+   * A small helper function to remove either '.' or '#' from the string provided
+   *
+   * @param {String} elem
+   * @returns {String} Element Identifier name
+   */
+  removeDomIdentifier = function (elem) {
+    return elem.substring(1, elem.length);
+  },
 
-    /**
-     * Takes an array of String and converts it to an Enum(kind of Enum as JS does not support Enums at all)
-     * If text to number and number to text mapping (ex: { 1: "a", "a": 1 }) is needed
-     * then pass isNum = true else leave it blank or null
-     * @param {String[]} items
-     * @param {Boolean} isNum
-     * @returns {Enum} Enum Object
-     */
-    eenum = function (items, isNum) {
-      if (!items || items.length <= 0) {
-        throw "No arguments passed to Enum";
-      }
+  /**
+   * Takes an array of String and converts it to an Enum(kind of Enum as JS does not support Enums at all)
+   * If text to number and number to text mapping (ex: { 1: "a", "a": 1 }) is needed
+   * then pass isNum = true else leave it blank or null
+   * @param {String[]} items
+   * @param {Boolean} isNum
+   * @returns {Enum} Enum Object
+   */
+  eenum = function (items, isNum) {
+    if (!items || items.length <= 0) {
+      throw "No arguments passed to Enum";
+    }
 
-      // Making items unique
-      items = [...new Set(items)];
+    // Making items unique
+    items = [...new Set(items)];
 
-      isNum = !!isNum;
+    isNum = !!isNum;
 
-      if (isNum) {
-        return items.reduce((acc, cv, ci) => {
-          acc[acc[cv] = ci + 1] = cv;
-          return acc;
-        }, {});
-      } else {
-        return items.reduce((acc, cv) => {
-          acc[cv] = cv;
-          return acc;
-        }, {});
-      }
+    if (isNum) {
+      return items.reduce((acc, cv, ci) => {
+        acc[acc[cv] = ci + 1] = cv;
+        return acc;
+      }, {});
+    } else {
+      return items.reduce((acc, cv) => {
+        acc[cv] = cv;
+        return acc;
+      }, {});
+    }
+  },
 
-    },
+  /**
+   * Checks if the given argument is a number
+   * and returns boolean result
+   * @param {String} value
+   * @returns {Boolean}
+   */
+  isNumber = function (value) {
+    return /^\d*\.?\d+$/.test(value);
+  },
 
-    /**
-     * Checks if the given argument is a number
-     * and returns boolean result
-     * @param {String} value
-     * @returns {Boolean}
-     */
-    isNumber = function (value) {
-      return /^\d*\.?\d+$/.test(value);
-    },
+  /**
+   * Function that gets the mouse position coordinates
+   * This also keeps page scroll in account
+   * @param {MouseEvent} mouseEvent
+   * @param {HTMLElement} container
+   * @returns { x: Number, y: Number} Mouse Position Object { x: 0, y: 0}
+   */
+  getMousePosition = function (mouseEvent) {
+    mouseEvent = mouseEvent || window.event;
+    let pageX = mouseEvent.pageX,
+      pageY = mouseEvent.pageY;
 
-    /**
-     * Function that gets the mouse position coordinates
-     * This also keeps page scroll in account
-     * @param {MouseEvent} mouseEvent
-     * @param {HTMLElement} container
-     * @returns { x: Number, y: Number} Mouse Position Object { x: 0, y: 0}
-     */
-    getMousePosition = function (mouseEvent) {
-      mouseEvent = mouseEvent || window.event;
-      let pageX = mouseEvent.pageX,
-        pageY = mouseEvent.pageY;
+    // IE 8 fallback
+    if (pageX === undefined) {
+      pageX = mouseEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+      pageY = mouseEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
 
-      // IE 8 fallback
-      if (pageX === undefined) {
-        pageX = mouseEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        pageY = mouseEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-      }
-
-      return {
-        x: pageX,
-        y: pageY
-      };
-    },
-
-    /**
-     * The function accepts javascript element as parameter and adjusts its height as per content
-     * This functionality is mainly elements like textarea which do not have ability for height:auto in CSS
-     * @param {Element} _elem
-     */
-    adjustHeight = function (_elem) {
-      $(_elem).height(0).height(_elem.scrollHeight);
+    return {
+      x: pageX,
+      y: pageY
     };
+  },
+
+  /**
+   * The function accepts javascript element as parameter and adjusts its height as per content
+   * This functionality is mainly elements like textarea which do not have ability for height:auto in CSS
+   * @param {Element} _elem
+   */
+  adjustHeight = function (_elem) {
+    $(_elem).height(0).height(_elem.scrollHeight);
+  },
+
+  scrollStop = function (callback) {
+    // Make sure a valid callback was provided
+    if (!callback || typeof callback !== 'function') return;
+    // Setup scrolling variable
+    let isScrolling;
+    // Listen for scroll events
+    window.addEventListener('scroll', function () {
+      // Clear our timeout throughout the scroll
+      window.clearTimeout(isScrolling);
+      // Set a timeout to run after scrolling ends
+      isScrolling = setTimeout(function () {
+        // Run the callback
+        callback();
+      }, 66);
+    }, false);
+  };
+
+  String.prototype.trimAll = function() {
+    return this.replace(/[\s|\uFEFF|\xA0]{2,}/g, " ").trim();
+  };
+
 
   u.getId = (name) => makeDomElem(name, true);
   u.getClass = (name) => makeDomElem(name, false);
@@ -186,6 +206,7 @@ const ResumeParsing = {
   u.getIdentifierName = removeDomIdentifier;
   u.getMousePosition = getMousePosition;
   u.adjustHeight = adjustHeight;
+  u.scrollStop = scrollStop;
 
 })(ResumeParsing);
 
@@ -404,55 +425,6 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
           } // else deselection or empty/invalid text in select
         }, clickDelay);
       });
-
-      /**
-       * Click handler for arrow keys that change resume page
-       *
-       * @param {MouseEvent} e
-       */
-      $(elem.resPagination).on("click", elem.resPagePrev, function (e) {
-        _updatePage(e, false);
-      }).on("click", elem.resPageNext, function (e) {
-        _updatePage(e, true);
-      });
-
-      /**
-       * Initializing FORM on click of preview button
-       */
-      $(elem.preview).on("click", function () {
-        f.init();
-      });
-    },
-
-    /**
-     * Toggles the resume page
-     * depending on whether next or previous arow icon is clicked
-     * isNext parameter is used to tell whether next page or previous page is to be shown
-     * @param {MouseEvent} e
-     * @param {Boolean} isNext
-     */
-    _updatePage = function (e, isNext) {
-      const currResume = $(elem.currResumePage);
-      let goToElem = isNext ? currResume.next() : currResume.prev();
-      if (goToElem && goToElem.length > 0) {
-        let altElem = null;
-        const arrowIcon = e.target || e.srcElement,
-          activeClass = u.getIdentifierName(elem.currResumePage),
-          disabled = u.getIdentifierName(elem.disabledResToggle);
-        currResume.removeClass(activeClass);
-        goToElem.addClass(activeClass);
-        if (isNext) {
-          $(elem.resPagePrev).removeClass(disabled);
-          altElem = goToElem.next();
-        } else {
-          $(elem.resPageNext).removeClass(disabled);
-          altElem = goToElem.prev();
-        }
-        if (!altElem || altElem.length === 0) {
-          $(arrowIcon).addClass(disabled);
-        }
-        _updatePageCount(_getPageCount());
-      }
     },
 
     /**
@@ -516,9 +488,9 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
       let e = "";
       // Optimized way to get selected text taking IE < 9 in consideration as well
       return window.getSelection ?
-        e = window.getSelection().toString().trim() :
+        e = window.getSelection().toString().trimAll() :
         document.selection && "Control" != document.selection.type &&
-        (e = (document.selection.createRange().text).trim()), "" !== e && e;
+        (e = (document.selection.createRange().text).trimAll()), "" !== e && e;
     },
 
     /**
@@ -798,7 +770,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
      *
      */
     _close = function () {
-      body.removeClass(elem.cmOpen);
+      body.removeClass(cmOpen);
       $(elem.contextMenu).remove();
     },
 
@@ -1212,12 +1184,10 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
     updateFilledFields = function (onlyReq) {
       const len = onlyReq ? fu.getReq().length : _allKeys.length,
         pBar = $(elem.progressBar),
-        percnt = parseInt((fu.getAllDone().length / len) * 100) + "%",
-        iconW = pBar.prev().outerWidth(),
-        actualW = `calc(${percnt} - ${iconW}px)`;
-      pBar.width(actualW);
+        percnt = parseInt((fu.getAllDone().length / len) * 100) + "%";
+      pBar.width(percnt);
       // Adding final text to the progress bar
-      $(elem.progress).html(percnt + " Complete");
+      $(elem.progress).html(percnt);
     },
 
     init = function () {
@@ -1387,7 +1357,7 @@ Object.keys(ResumeParsing.AllFields).forEach((f) => {
 
       if (item.like.indexOf(ResumeParsing.AllCategoryNames.Name) > -1) {
         // Check if name values contain special characters
-        if (/^[a-zA-Z0-9]*$/.test(val) === false) {
+        if (/^[a-zA-Z0-9 ]*$/.test(val) === false) {
           showError(item.label, "cannot contain special characters!");
         }
       }

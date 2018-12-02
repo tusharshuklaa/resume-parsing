@@ -1,0 +1,41 @@
+.floating-bar {
+  @include megaFlex(jc space-around ai center);
+  @include position(fixed, right 0px left 0px bottom 50px);
+  background-color: darken($lightWhite, 2%);
+  color: $black;
+  padding: $basePad1;
+  box-shadow: 2px 2px 4px 1px $grey;
+  max-width: 35%;
+  margin: auto;
+
+  > *:not(:last-child) {
+    border-right: 1px solid $grey;
+    padding-right: $basePad3;
+  }
+
+  .resume {
+    &-info {
+      font-size: 1.4em;
+      cursor: pointer;
+    }
+
+    &-progress {
+      @include megaFlex(jc space-between ai center);
+      @include flex-basis(70%);
+
+      &_bar {
+        @include transition(width 0.5s cubic-bezier(0.65, 0.05, 0.36, 1));
+        background-color: $progressBarBg;
+        height: $basePad1;
+        border-radius: $basePad1;
+      }
+    }
+
+    &-finish {
+      background-color: transparent;
+      padding: 0px;
+      border: 0px;
+      outline: 0px;
+    }
+  }
+}
